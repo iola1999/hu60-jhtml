@@ -1,0 +1,377 @@
+/*# sourceURL=/tpl/classic/css/default.css?r=1562938899 */
+/*@ sourceURL=/tpl/classic/css/default.css?r=1562938899 */
+body {
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 2px 5px;
+  background-color: #ffffff;
+  color: #000000;
+  max-width: 1024px;
+  margin: 0px auto;
+  box-shadow: 0 0 15px #ccc;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  -webkit-tab-size: 4;
+}
+
+p,
+div {
+  overflow: hidden;
+}
+
+p {
+  margin: 0px;
+  padding: 2px 1px 2px 1px;
+}
+
+.tp {
+  margin: 0px;
+  background-color: #e6f3ff;
+}
+
+a {
+  text-decoration: none;
+  color: #08c;
+}
+
+form {
+  margin: 0px;
+  padding: 0px;
+}
+
+img,
+input,
+textarea {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+hr {
+  height: 1px;
+  border: 1px solid #bed8ea;
+  border-left: none;
+  border-right: none;
+}
+
+textarea {
+  width: 270px;
+  height: 55px;
+  overflow-y: visible;
+}
+
+pre,
+textarea {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+ol,
+ul {
+  margin: 0px;
+}
+
+.success {
+  color: green;
+}
+
+.failure {
+  color: red;
+}
+
+.notice {
+  color: red;
+}
+
+img {
+  max-width: 100%;
+}
+
+.info-box {
+  text-align: center;
+  border: solid red 1px;
+}
+
+.video {
+  width: 600px;
+  height: 400px;
+  border: none;
+  max-width: 100%;
+}
+
+.audio {
+  width: 600px;
+  border: none;
+  max-width: 100%;
+}
+
+#content_title {
+  width: 270px;
+  max-width: 100%;
+}
+
+/* 针对电脑屏幕 */
+@media screen and (min-width: 800px) {
+  img {
+    max-width: 800px;
+    max-height: 600px;
+  }
+}
+
+/* 小说阅读器 */
+.topic-ul {
+  list-style-type: none;
+  padding: 0;
+}
+.topic-ul > li {
+  padding: 5px 10px 2px 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topic-ul > li .topic-meta {
+  margin: 0px;
+}
+.topic-ul > li .topic-reply-count {
+  width: 5%;
+  display: flex;
+  font-weight: 300;
+  font-size: 30px;
+  color: gray;
+}
+.topic-ul > li .topic-reply-count a {
+  color: gray;
+}
+.topic-ul > li .topic-forum-name {
+  width: 15%;
+  display: flex;
+}
+.topic-ul > li .topic-forum-name a {
+  color: gray;
+}
+.topic-ul > li .topic-anchor {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  word-break: break-all;
+}
+.topic-ul > li .topic-anchor > a {
+  color: gray;
+}
+.topic-ul > li .topic-title {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.topic-ul > li .topic-title > a {
+  font-size: 18px;
+  display: block;
+}
+.page-jumper {
+  overflow: hidden;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-content: center;
+  padding-left: 2px;
+  margin: 10px 0 0 20px;
+}
+.page-jumper > li {
+  display: inline-block;
+}
+.page-jumper > li > input {
+  height: 22px;
+  width: 38px;
+  position: relative;
+  margin-left: -1px;
+  display: block;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #337ab7;
+}
+.pagination {
+  overflow: hidden;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-content: center;
+  padding-left: 2px;
+  margin: 10px 0 0 20px;
+}
+.pagination > li {
+  display: inline-block;
+}
+.pagination > li:first-child > a {
+  border-radius: 5px 0 0 5px;
+}
+.pagination > li:last-child > a {
+  border-radius: 0 5px 5px 0;
+}
+.pagination > li > a {
+  position: relative;
+  margin-left: -1px;
+  display: block;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  color: #337ab7;
+}
+.pagination > .disabled > a {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+}
+.pagination > .disabled > a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+}
+.pagination > .disabled > a:hover {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+}
+.pagination > .active > a {
+  color: #fff;
+  cursor: default;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+.pagination > .active > a:focus {
+  color: #fff;
+  cursor: default;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+.pagination > .active > a:hover {
+  color: #fff;
+  cursor: default;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+@media screen and (max-width: 600px) {
+  .topic-ul > li .topic-reply-count {
+    display: block;
+  }
+  .topic-ul > li .topic-reply-count .number {
+    display: block;
+    font-size: 14px;
+  }
+  .topic-ul > li .topic-reply-count .spliter {
+    display: none;
+  }
+  .topic-ul > li .topic-reply-count .forum {
+    display: block;
+    font-size: 14px;
+  }
+  .topic-ul > li .topic-anchor > a {
+    font-size: 14px;
+  }
+  .topic-ul > li .topic-title > a {
+    font-size: 16px;
+  }
+  .topic-ul > li .topic-reply-count {
+    display: none;
+  }
+  .topic-ul > li .topic-forum-name {
+    display: none;
+  }
+  .topic-ul > li .topic-title {
+    width: 80%;
+  }
+}
+
+/* 关注与屏蔽列表样式 */
+.relationship-wrapper .empty {
+  width: 100%;
+  text-align: center;
+  color: #999fa5;
+  font-size: 14px;
+}
+.relationship-wrapper .user-item {
+  height: 60px;
+  color: #333333;
+  display: block;
+  border-bottom: 1px solid #f5f5f5;
+}
+.relationship-wrapper .user-item a {
+  text-decoration: none;
+}
+.relationship-wrapper .user-item a:nth-child(1) {
+  display: inline-block;
+  width: calc(100% - 60px);
+}
+.relationship-wrapper .user-item .avatar {
+  float: left;
+  height: 50px;
+  width: 50px;
+  margin-left: 20px;
+  margin-top: 5px;
+  display: inline-block;
+  border-radius: 50px;
+}
+.relationship-wrapper .user-item .info {
+  margin-left: 15px;
+  margin-top: 10px;
+  display: inline-block;
+  width: calc(100% - 100px);
+}
+.relationship-wrapper .user-item .info .name {
+  font-size: 18px;
+}
+.relationship-wrapper .user-item .info .signature {
+  color: #999fa5;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.relationship-wrapper .user-item .remove {
+  float: right;
+  height: 100%;
+  width: 60px;
+  display: inline-block;
+  padding-top: 20px;
+  color: #ff0000;
+  text-align: center;
+}
+
+/*回复列表中的区块引用*/
+.reply-box blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  max-height: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reply-box blockquote:before {
+  color: #ccc;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+#searchType-label {
+  display: inline-block;
+}
+.hu60_face,
+#face img {
+  width: 32px;
+  max-width: 32px;
+}
+
+/*代码高亮*/
+.hu60_code code,
+.markdown-body pre code {
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  word-break: break-all !important;
+}
+.hu60_code code {
+  background-color: #f7f7f7;
+}

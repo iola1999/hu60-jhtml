@@ -12,31 +12,31 @@
         size="large"
         :value="onePost.title"
         is-link
-        to="PostDetail"
+        :to="{ name: 'PostDetail', query: { topic_id: onePost.topic_id } }"
       ></van-cell>
     </van-list>
   </div>
 </template>
 
 <script>
-import * as Hu60Api from "@/api/hu60Api";
+import * as hu60Api from '@/api/hu60Api';
 
 export default {
-  name: "Posts",
+  name: 'Posts',
   components: {},
   data() {
     return {
       postsList: [],
       loading: false,
       finished: false,
-      loadedPageCount: 0 // 首页帖子已加载页数
+      loadedPageCount: 0, // 首页帖子已加载页数
     };
   },
   mounted() {},
   methods: {
     loadPostsList(pageNumber) {
       this.loading = true;
-      Hu60Api.listNewPosts(pageNumber).then(response => {
+      hu60Api.listNewPosts(pageNumber).then((response) => {
         if (response.data.newTopicList.length === 0) {
           this.finished = true;
         } else {
@@ -45,7 +45,7 @@ export default {
           this.loading = false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
