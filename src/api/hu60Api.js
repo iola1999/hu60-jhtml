@@ -12,3 +12,13 @@ export const listNewPosts = pageNumber => {
   };
   return httpFetch.get(requestUrl, { params });
 };
+
+export const chatList = () => {
+  const requestUrl = "/addin.chat.json";
+  return httpFetch.get(requestUrl, {});
+};
+
+export const room = (name, page) => {
+  const requestUrl = `/addin.chat.${name}.json?p=${page}`;
+  return httpFetch.get(requestUrl, {});
+};
