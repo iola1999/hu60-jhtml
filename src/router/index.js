@@ -1,14 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Post from "../views/Post.vue";
+import Posts from "../views/Posts.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Post",
-    component: Post
+    redirect: "Posts"
+  },
+  {
+    path: "/Posts",
+    name: "Posts",
+    component: Posts
   }
 ];
 

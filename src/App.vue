@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <router-view />
-    <van-tabbar v-model="active" active-color="#07c160" inactive-color="#000">
-      <van-tabbar-item name="post" icon="orders-o">帖子</van-tabbar-item>
-      <van-tabbar-item name="chatroom" icon="chat-o">聊天室</van-tabbar-item>
-      <van-tabbar-item name="my" icon="user-o">我的</van-tabbar-item>
+    <van-tabbar active-color="#07c160" inactive-color="#000" route>
+      <van-tabbar-item name="Posts" icon="orders-o" replace to="/Posts">帖子</van-tabbar-item>
+      <van-tabbar-item name="Chatroom" icon="chat-o" replace to="/Chatroom">聊天室</van-tabbar-item>
+      <van-tabbar-item name="My" icon="user-o" replace to="/My">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   components: {},
   data() {
     return {
-      active: "post"
+      showingTab: "Posts"
     };
   }
 };

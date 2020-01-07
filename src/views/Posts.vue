@@ -1,15 +1,13 @@
 <template>
-  <div class="Post">Post</div>
+  <div class="Posts">Posts</div>
 </template>
 
 <script>
 export default {
-  name: "Post",
+  name: "Posts",
   components: {},
   data() {
-    return {
-      active: "帖子"
-    };
+    return {};
   }
 };
 </script>
