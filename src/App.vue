@@ -13,24 +13,24 @@
 
 <script>
 export default {
-  name: "home",
+  name: 'home',
   components: {},
   data() {
     return {
-      showingTab: "Posts"
+      showingTab: 'Posts',
     };
   },
   computed: {
     styleObj() {
-      return "margin-bottom:" + (this.$route.meta.fullScreen ? "0" : "50px"); // 底部存在标签栏时，防止内容被遮挡
-    }
-  }
+      return 'margin-bottom:' + (this.$route.meta.fullScreen ? '0' : '50px'); // 底部存在标签栏时，防止内容被遮挡
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
