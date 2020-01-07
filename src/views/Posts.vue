@@ -28,8 +28,8 @@ export default {
     return {
       postsList: [],
       loading: false,
-      finished: false, // 应该永远加载不完吧
-      loadedPageCount: 0
+      finished: false,
+      loadedPageCount: 0 // 首页帖子已加载页数
     };
   },
   mounted() {},
@@ -37,10 +37,13 @@ export default {
     loadPostsList(pageNumber) {
       this.loading = true;
       Hu60Api.listNewPosts(pageNumber).then(response => {
-        console.log(response);
-        this.postsList.push(...response.data.newTopicList);
-        this.loadedPageCount += 1;
-        this.loading = false;
+        if (response.data.newTopicList.length === 0) {
+          this.finished = true;
+        } else {
+          this.postsList.push(...response.data.newTopicList);
+          this.loadedPageCount += 1;
+          this.loading = false;
+        }
       });
     }
   }
