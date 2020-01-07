@@ -5,10 +5,10 @@ import httpFetch from "@/api/httpFetch";
  * 现货委托
  * @returns {Promise} 委托结果
  */
-export const listNewPosts = () => {
+export const listNewPosts = pageNumber => {
   const requestUrl = "/index.index.json";
   const params = {
-    p: 2
+    p: pageNumber
   };
   return httpFetch.get(requestUrl, { params });
 };

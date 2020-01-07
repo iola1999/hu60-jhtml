@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <router-view />
-    <van-tabbar active-color="#07c160" inactive-color="#000" route>
+    <keep-alive include="Posts,Chatroom,My">
+      <router-view :style="styleObj" />
+    </keep-alive>
+    <van-tabbar active-color="#07c160" inactive-color="#000" route v-show="!$route.meta.fullScreen">
       <van-tabbar-item name="Posts" icon="orders-o" replace to="/Posts">帖子</van-tabbar-item>
       <van-tabbar-item name="Chatroom" icon="chat-o" replace to="/Chatroom">聊天室</van-tabbar-item>
       <van-tabbar-item name="My" icon="user-o" replace to="/My">我的</van-tabbar-item>
@@ -17,6 +19,11 @@ export default {
     return {
       showingTab: "Posts"
     };
+  },
+  computed: {
+    styleObj() {
+      return "margin-bottom:" + (this.$route.meta.fullScreen ? "0" : "50px"); // 底部存在标签栏时，防止内容被遮挡
+    }
   }
 };
 </script>

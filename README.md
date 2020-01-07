@@ -1,4 +1,4 @@
-# demohu60
+# hu60-jhtml
 
 ## Project setup
 ```
