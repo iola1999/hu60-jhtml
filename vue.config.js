@@ -8,7 +8,7 @@ module.exports = {
     },
   },
   productionSourceMap: false,
-  filenameHashing: true,
+  filenameHashing: false,
   // 虎绿林的 jhtml 只能存放 html，所以 js、css 需要放到自己的 cdn 或者其他位置，可以写在下面方便 build 时自动修改 html
   publicPath:
     process.env.NODE_ENV === 'production'
