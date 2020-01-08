@@ -4,7 +4,7 @@
 
 # 使用方法
 
-[https://hu60.cn/q.php/bbs.topic.92126.html](<(https://hu60.cn/q.php/bbs.topic.92126.html)>)
+[https://hu60.cn/q.php/bbs.topic.92126.html](https://hu60.cn/q.php/bbs.topic.92126.html)
 
 # 已实现的功能
 
