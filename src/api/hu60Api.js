@@ -14,12 +14,22 @@ export const listNewPosts = (pageNumber) => {
   return httpFetch.get(requestUrl, { params });
 };
 
-export const chatList = () => {
-  const requestUrl = "/addin.chat.json";
+/**
+ * 获取聊天室列表，其中第一项是最新发言聊天室
+ * @returns {Promise}
+ */
+export const getChatRoomList = () => {
+  const requestUrl = '/addin.chat.json';
   return httpFetch.get(requestUrl, {});
 };
 
-export const room = (name, page) => {
+/**
+ * 获取聊天室详细发言
+ * @param {String} name 聊天室名称
+ * @param {Number} replyPageNumber 第几页，默认是1
+ * @returns {Promise}
+ */
+export const room = (name, page = 1) => {
   const requestUrl = `/addin.chat.${name}.json?p=${page}`;
   return httpFetch.get(requestUrl, {});
 };
