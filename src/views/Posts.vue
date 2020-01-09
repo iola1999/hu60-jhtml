@@ -12,8 +12,10 @@
         size="large"
         :value="onePost.title"
         is-link
-        :to="{ name: 'PostDetail', query: { topic_id: onePost.topic_id } }"
-      ></van-cell>
+        :to="{ name: 'PostDetail', query: { topic_id: onePost.topic_id, mtime:onePost.mtime } }"
+      >
+        <!-- 模仿 v2 的思路，入参加上帖子活跃时间，就能在无更新时缓存，有更新时重新加载了 -->
+      </van-cell>
     </van-list>
   </div>
 </template>

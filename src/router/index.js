@@ -15,6 +15,10 @@ const routes = [
     path: '/Posts',
     name: 'Posts',
     component: Posts,
+    meta: {
+      // title: '虎绿林 编程学院',
+      index: 1, // 页面层级，用于切换时判断动画方向
+    },
   },
   {
     path: '/PostDetail',
@@ -22,12 +26,16 @@ const routes = [
     component: PostDetail,
     meta: {
       fullScreen: true, // 即底部不存在标签栏，不需要 margin-bottom: 50px
+      index: 2,
     },
   },
   {
     path: '/Chatroom',
     name: 'Chatroom',
     component: Chatroom,
+    meta: {
+      index: 1,
+    },
   },
 ];
 

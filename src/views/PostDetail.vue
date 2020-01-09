@@ -1,5 +1,5 @@
 <template>
-  <div class="PostDetail">
+  <div id="postDetail">
     <!-- :title="postDetailData ? postDetailData.tMeta.title : '加载中...'" -->
     <van-nav-bar left-text="返回" left-arrow @click-left="onClickLeft">
       <span slot="right" class="actions-top-right">
@@ -9,7 +9,7 @@
       </span>
     </van-nav-bar>
     <topicHead :postDetailData="postDetailData" />
-    <div v-html="topicContent">{{topicContent}}</div>
+    <div id="topicContent" v-html="topicContent">{{ topicContent }}</div>
   </div>
 </template>
 
@@ -74,12 +74,30 @@ export default {
 </script>
 
 <style lang="scss">
-.PostDetail {
+#postDetail {
   text-align: left;
-}
-.actions-top-right {
-  .van-icon {
-    margin-left: 12px;
+
+  .van-nav-bar__left {
+    left: 4px;
+  }
+  .van-nav-bar__right {
+    right: 4px;
+  }
+
+  .actions-top-right {
+    .van-icon {
+      margin-left: 12px;
+    }
+  }
+
+  #topicContent {
+    text-align: left;
+    background-color: #fdfdfd;
+    margin: 7px 0 0 0;
+    padding: 2px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    overflow: hidden;
   }
 }
 </style>
