@@ -21,7 +21,7 @@ const routes = [
     name: 'PostDetail',
     component: PostDetail,
     meta: {
-      fullScreen: true,
+      fullScreen: true, // 即底部不存在标签栏，不需要 margin-bottom: 50px
     },
   },
   {
@@ -29,11 +29,9 @@ const routes = [
     name: 'Chatroom',
     component: Chatroom,
   },
-  // { path: '*', component: NotFoundComponent }, // 使用 history 模式最好加一个 404 页面
 ];
 
 const router = new VueRouter({
-  mode: 'history',
   routes,
 });
 

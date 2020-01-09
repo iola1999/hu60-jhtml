@@ -1,14 +1,14 @@
 <template>
-  <div class="topic-head"></div>
+  <div class="topic-head">{{postDetailData ? postDetailData.tMeta.title : '加载中...'}}</div>
 </template>
 
 <script>
 export default {
   name: 'topicHead',
   props: {
-    topicContent: {
+    postDetailData: {
       type: Object,
-      default: () => {},
+      default: () => null,
     },
   },
 };

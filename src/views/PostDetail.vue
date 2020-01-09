@@ -1,15 +1,14 @@
 <template>
   <div class="PostDetail">
-    <van-nav-bar
-      :title="postDetailData ? postDetailData.tMeta.title : '加载中...'"
-      left-text="返回"
-      left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
-    >
-      <van-icon name="search" slot="right" />
+    <!-- :title="postDetailData ? postDetailData.tMeta.title : '加载中...'" -->
+    <van-nav-bar left-text="返回" left-arrow @click-left="onClickLeft">
+      <span slot="right" class="actions-top-right">
+        <van-icon name="star-o" size="18" @click="onClickStar" />
+        <van-icon name="edit" size="18" @click="onClickReply" />
+        <van-icon name="wap-nav" size="18" @click="onClickMorkActions" />
+      </span>
     </van-nav-bar>
-    <topicHead />
+    <topicHead :postDetailData="postDetailData" />
     <div v-html="topicContent">{{topicContent}}</div>
   </div>
 </template>
@@ -55,11 +54,19 @@ export default {
         });
     },
     onClickLeft() {
-      this.$toast('返回');
+      // this.$toast('返回');
       this.$router.go(-1);
     },
-    onClickRight() {
-      this.$toast('按钮');
+    onClickStar() {
+      this.$toast(
+        'TODO: 点了收藏，后面在看有没有获取收藏状态的，收藏后改成实心',
+      );
+    },
+    onClickReply() {
+      this.$toast('TODO: 点了回复');
+    },
+    onClickMorkActions() {
+      this.$toast('TODO: 点了右上角按钮，弹出一些菜单');
     },
   },
   watch: {},
@@ -69,5 +76,10 @@ export default {
 <style lang="scss">
 .PostDetail {
   text-align: left;
+}
+.actions-top-right {
+  .van-icon {
+    margin-left: 12px;
+  }
 }
 </style>
