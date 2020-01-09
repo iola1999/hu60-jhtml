@@ -12,7 +12,9 @@ import { Toast } from 'vant';
 import { List } from 'vant';
 import { Cell } from 'vant';
 import { Icon } from 'vant';
+import { PullRefresh } from 'vant';
 
+Vue.use(PullRefresh);
 Vue.use(Icon);
 Vue.use(Cell);
 Vue.use(List);

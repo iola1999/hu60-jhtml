@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Posts from '../views/Posts.vue';
 import PostDetail from '../views/PostDetail.vue';
-import Chatroom from '../views/Chatroom/Chatroom';
+import Chatroom from '../views/Chatroom';
 
 Vue.use(VueRouter);
 
@@ -17,7 +17,7 @@ const routes = [
     component: Posts,
     meta: {
       // title: '虎绿林 编程学院',
-      index: 1, // 页面层级，用于切换时判断动画方向
+      index: 10, // 页面层级，用于切换时判断动画方向
     },
   },
   {
@@ -26,7 +26,7 @@ const routes = [
     component: PostDetail,
     meta: {
       fullScreen: true, // 即底部不存在标签栏，不需要 margin-bottom: 50px
-      index: 2,
+      index: 20,
     },
   },
   {
@@ -34,7 +34,7 @@ const routes = [
     name: 'Chatroom',
     component: Chatroom,
     meta: {
-      index: 1,
+      index: 11,
     },
   },
 ];

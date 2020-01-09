@@ -1,7 +1,7 @@
 <template>
   <div id="room">
     <!-- 1.顶部聊天室选择 -->
-    <div>当前聊天室：{{currentChatroomName}} [切换]</div>
+    <div>当前聊天室：{{currentChatroomName}} [切换] DropdownMenu, DropdownItem</div>
     <div>2.当前聊天室内容，倒序，上拉加载更多 pull-refresh</div>
     <div>3.输入框</div>
   </div>

@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- 这里 transition 未能生效，需要排查 -->
     <transition :name="transitionName">
       <keep-alive include="Posts,Chatroom,My,PostDetail">
         <!-- 复用 PostDetail，且 key 使用 fullPath，可以缓存已浏览（且未活跃）的帖子，体验好一丢丢 -->
@@ -36,9 +35,9 @@ export default {
       console.log(to.meta.index, from.meta.index);
       //如果to索引大于from索引,判断为前进状态,反之则为后退状态
       if (to.meta.index > from.meta.index) {
-        this.transitionName = 'slide-left';
+        this.transitionName = 'van-slide-left';
       } else {
-        this.transitionName = 'slide-right';
+        this.transitionName = 'van-slide-right';
       }
     },
   },
