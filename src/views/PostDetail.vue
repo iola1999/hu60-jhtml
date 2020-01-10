@@ -9,7 +9,6 @@
       </span>
     </van-nav-bar>
     <topicHead :postDetailData="postDetailData" />
-    <div id="topicContent" v-html="topicContent">{{ topicContent }}</div>
   </div>
 </template>
 
@@ -26,17 +25,14 @@ export default {
       loadedPageCount: 0, // 帖子详情已加载页数，总页数是 maxPage
     };
   },
-  computed: {
-    topicContent() {
-      return this.postDetailData
-        ? this.postDetailData.tContents[0].content
-        : '';
-    },
-  },
+  computed: {},
   mounted() {
     // 帖子详情页面不keepalive
-    console.log(this.$route.query.topic_id);
     this.loadContentAndReply();
+    setTimeout(() => {
+      const targetPosition = [0, 0];
+      window.scrollTo(...targetPosition);
+    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
   },
   methods: {
     loadContentAndReply() {
@@ -88,16 +84,6 @@ export default {
     .van-icon {
       margin-left: 12px;
     }
-  }
-
-  #topicContent {
-    text-align: left;
-    background-color: #fdfdfd;
-    margin: 7px 0 0 0;
-    padding: 2px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    overflow: hidden;
   }
 }
 </style>
