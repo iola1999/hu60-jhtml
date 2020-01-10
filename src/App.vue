@@ -50,24 +50,33 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 .appView {
+  width: 100%;
   // position: absolute;
-  // width: 100%;
-  transition: transform 0.2s ease-out;
 }
-.slide-left-enter {
-  transform: translate(100%, 0);
-}
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
 .slide-left-leave-active {
-  transform: translate(-50%, 0);
+  will-change: transform;
+  transition: all 250ms;
+  // position: absolute;
 }
 .slide-right-enter {
-  transform: translate(-50%, 0);
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
 .slide-right-leave-active {
-  transform: translate(100%, 0);
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
 </style>

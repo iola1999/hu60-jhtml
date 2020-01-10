@@ -5,7 +5,7 @@
         v-model="isLoadingMore"
         :finished="isLoadedAllPosts"
         finished-text="没有更多了"
-        @load="isLoadingMore = true; loadPostsList(loadedPageCount + 1)"
+        @load="onLoadingMore"
       >
         <van-cell
           v-for="onePost in postsList"
@@ -40,23 +40,29 @@ export default {
   mounted() {},
   methods: {
     loadPostsList(pageNumber) {
-      hu60Api.listNewPosts(pageNumber).then((response) => {
+      return hu60Api.listNewPosts(pageNumber).then((response) => {
         if (response.data.newTopicList.length === 0) {
           this.isLoadedAllPosts = true;
         } else {
           this.postsList.push(...response.data.newTopicList);
           this.loadedPageCount += 1;
-          this.isLoadingMore = false;
-          this.isRefreshing = false; // 顺便也置一下
         }
+      });
+    },
+    onLoadingMore() {
+      this.isLoadingMore = true;
+      this.loadPostsList(this.loadedPageCount + 1).then(() => {
+        this.isLoadingMore = false;
       });
     },
     onRefresh() {
       this.postsList = [];
-      this.isRefreshing = true; // 刷新
       this.isLoadedAllPosts = false;
       this.loadedPageCount = 0;
-      this.loadPostsList(this.loadedPageCount + 1);
+      this.isRefreshing = true; // 刷新
+      this.loadPostsList(this.loadedPageCount + 1).then(() => {
+        this.isRefreshing = false;
+      });
     },
   },
 };
