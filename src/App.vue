@@ -3,7 +3,7 @@
     <transition :name="transitionName">
       <keep-alive include="Posts,Chatroom,My,PostDetail">
         <!-- 复用 PostDetail，且 key 使用 fullPath，可以缓存已浏览（且未活跃）的帖子，体验好一丢丢 -->
-        <router-view :style="styleObj" :key="$route.fullPath" />
+        <router-view :style="styleObj" :key="$route.fullPath" class="appView" />
       </keep-alive>
     </transition>
     <van-tabbar active-color="#07c160" inactive-color="#000" route v-show="!$route.meta.fullScreen">
@@ -34,11 +34,12 @@ export default {
       console.log(this.$route);
       console.log(to.meta.index, from.meta.index);
       //如果to索引大于from索引,判断为前进状态,反之则为后退状态
-      if (to.meta.index > from.meta.index) {
-        this.transitionName = 'van-slide-left';
-      } else {
-        this.transitionName = 'van-slide-right';
-      }
+      this.transitionName =
+        to.meta.index > from.meta.index
+          ? 'slide-left'
+          : to.meta.index === from.meta.index
+          ? ''
+          : 'slide-right';
     },
   },
 };
@@ -51,5 +52,22 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.appView {
+  // position: absolute;
+  // width: 100%;
+  transition: transform 0.2s ease-out;
+}
+.slide-left-enter {
+  transform: translate(100%, 0);
+}
+.slide-left-leave-active {
+  transform: translate(-50%, 0);
+}
+.slide-right-enter {
+  transform: translate(-50%, 0);
+}
+.slide-right-leave-active {
+  transform: translate(100%, 0);
 }
 </style>

@@ -3,6 +3,9 @@ import VueRouter from 'vue-router';
 import Posts from '../views/Posts.vue';
 import PostDetail from '../views/PostDetail.vue';
 import Chatroom from '../views/Chatroom';
+import My from '../views/My';
+import Login from '../views/Login';
+import PageNotFound from '../views/PageNotFound';
 
 Vue.use(VueRouter);
 
@@ -35,6 +38,30 @@ const routes = [
     component: Chatroom,
     meta: {
       index: 11,
+    },
+  },
+  {
+    path: '/My', // 个人中心
+    name: 'My',
+    component: My,
+    meta: {
+      index: 12,
+    },
+  },
+  {
+    path: '/Login', // 登录
+    name: 'Login',
+    component: Login,
+    meta: {
+      index: 99,
+    },
+  },
+  {
+    path: '/*',
+    name: 'PageNotFound',
+    component: PageNotFound,
+    meta: {
+      index: 99,
     },
   },
 ];

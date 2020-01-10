@@ -3,7 +3,7 @@
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh">
       <van-list
         v-model="isLoadingMore"
-        :finished="finished"
+        :finished="isLoadedAllPosts"
         finished-text="没有更多了"
         @load="isLoadingMore = true; loadPostsList(loadedPageCount + 1)"
       >
@@ -33,7 +33,7 @@ export default {
       postsList: [],
       isLoadingMore: false, // 加载更多
       isRefreshing: false, // 刷新
-      finished: false,
+      isLoadedAllPosts: false,
       loadedPageCount: 0, // 首页帖子已加载页数
     };
   },
@@ -42,7 +42,7 @@ export default {
     loadPostsList(pageNumber) {
       hu60Api.listNewPosts(pageNumber).then((response) => {
         if (response.data.newTopicList.length === 0) {
-          this.finished = true;
+          this.isLoadedAllPosts = true;
         } else {
           this.postsList.push(...response.data.newTopicList);
           this.loadedPageCount += 1;
@@ -54,7 +54,7 @@ export default {
     onRefresh() {
       this.postsList = [];
       this.isRefreshing = true; // 刷新
-      this.finished = false;
+      this.isLoadedAllPosts = false;
       this.loadedPageCount = 0;
       this.loadPostsList(this.loadedPageCount + 1);
     },
