@@ -6,7 +6,7 @@
         <router-view :style="styleObj" :key="$route.fullPath" class="appView" />
       </keep-alive>
     </transition>
-    <van-tabbar active-color="#07c160" inactive-color="#000" route v-show="!$route.meta.fullScreen">
+    <van-tabbar active-color="#197b30" inactive-color="#000" route v-show="!$route.meta.fullScreen">
       <van-tabbar-item name="Posts" icon="orders-o" replace to="/Posts">帖子</van-tabbar-item>
       <van-tabbar-item name="Chatroom" icon="chat-o" replace to="/Chatroom">聊天室</van-tabbar-item>
       <van-tabbar-item name="My" icon="user-o" replace to="/My">我的</van-tabbar-item>
@@ -47,9 +47,8 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  // 这里设宽度 100 会导致动画不太正常.......啊动画好多坑啊
+  // width: 375px;
 }
 .appView {
   width: 100%;

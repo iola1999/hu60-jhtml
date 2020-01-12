@@ -39,16 +39,16 @@ export default {
   },
   mounted() {},
   // 在被缓存，且需要重新进入时返回离开时位置的页面，加上如下 activated、beforeRouteLeave
-  activated() {
-    setTimeout(() => {
-      const targetPosition = this.$route.meta.scrollTo || [0, 0];
-      window.scrollTo(...targetPosition);
-    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
-  },
-  beforeRouteLeave(to, from, next) {
-    from.meta.scrollTo = [window.scrollX, window.scrollY];
-    next();
-  },
+  // activated() {
+  //   setTimeout(() => {
+  //     const targetPosition = this.$route.meta.scrollTo || [0, 0];
+  //     window.scrollTo(...targetPosition);
+  //   }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+  // },
+  // beforeRouteLeave(to, from, next) {
+  //   from.meta.scrollTo = [window.scrollX, window.scrollY];
+  //   next();
+  // },
   methods: {
     loadPostsList(pageNumber) {
       return hu60Api.listNewPosts(pageNumber).then((response) => {
@@ -78,3 +78,11 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.Posts {
+  text-align: left;
+  position: absolute;
+  width: 100%;
+}
+</style>

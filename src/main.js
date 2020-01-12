@@ -13,7 +13,9 @@ import { List } from 'vant';
 import { Cell } from 'vant';
 import { Icon } from 'vant';
 import { PullRefresh } from 'vant';
+import { DropdownMenu, DropdownItem } from 'vant';
 
+Vue.use(DropdownMenu).use(DropdownItem);
 Vue.use(PullRefresh);
 Vue.use(Icon);
 Vue.use(Cell);

@@ -1,14 +1,27 @@
 <template>
   <div id="room">
-    <!-- 1.顶部聊天室选择 -->
-    <div>当前聊天室：{{currentChatroomName}} [切换] DropdownMenu, DropdownItem</div>
-    <div>2.当前聊天室内容，倒序，上拉加载更多 pull-refresh</div>
+    <van-dropdown-menu active-color="#197b30">
+      <van-dropdown-item :title="'当前聊天室：' + currentChatroomName" ref="chooseChatroom">
+        <van-cell
+          v-for="oneChatroom in chatroomList"
+          :key="oneChatroom.id"
+          :title="oneChatroom.name"
+          :class="oneChatroom.name === currentChatroomName ? 'green-title' : ''"
+          :value="formatMsgTime(1000 * oneChatroom.ztime)"
+          @click="handleChatroomChange(oneChatroom.name)"
+        />
+        <van-cell title="这里可以新建或进入隐藏的" value=">" />
+      </van-dropdown-item>
+    </van-dropdown-menu>
+    <!-- 好像往上翻加载历史发言不太好做（懒得用 pull-refresh+独立刷新按钮了），就按网页的样子顶部是新发言 -->
+    <div id="chatroomContent"></div>
     <div>3.输入框</div>
   </div>
 </template>
 
 <script>
 import * as Hu60Api from '@/api/hu60Api';
+import formatMsgTime from '@/util/formatMsgTime';
 
 export default {
   name: 'Chatroom',
@@ -28,6 +41,13 @@ export default {
         }
       });
     },
+    handleChatroomChange(newChatroomName) {
+      this.currentChatroomName = newChatroomName;
+      this.$refs.chooseChatroom.toggle(); // 收起聊天室选择
+    },
+    formatMsgTime(timespan) {
+      return formatMsgTime(timespan);
+    },
   },
   created() {
     this.getChatRoomList();
@@ -35,10 +55,10 @@ export default {
   mounted() {},
   // 在被缓存，且需要重新进入时返回离开时位置的页面，加上如下 activated、beforeRouteLeave
   activated() {
-    setTimeout(() => {
-      const targetPosition = this.$route.meta.scrollTo || [0, 0];
-      window.scrollTo(...targetPosition);
-    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+    // setTimeout(() => {
+    //   const targetPosition = this.$route.meta.scrollTo || [0, 0];
+    //   window.scrollTo(...targetPosition);
+    // }, 300); // 250 毫秒的动画过渡时间，稍微再加点
   },
   beforeRouteLeave(to, from, next) {
     from.meta.scrollTo = [window.scrollX, window.scrollY];
@@ -56,8 +76,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 #room {
   text-align: left;
+  // position: relative;
+  height: 100%;
+  // width: 100%;
+  .green-title {
+    .van-cell__title {
+      color: #197b30;
+    }
+  }
+  #chatroomContent {
+    height: calc(100% - 100px);
+  }
 }
 </style>

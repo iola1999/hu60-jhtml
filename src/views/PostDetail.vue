@@ -27,8 +27,14 @@ export default {
   },
   computed: {},
   mounted() {
-    // 帖子详情页面不keepalive
     this.loadContentAndReply();
+    // setTimeout(() => {
+    //   const targetPosition = [0, 0];
+    //   window.scrollTo(...targetPosition);
+    // }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+  },
+  activated() {
+    console.log('PostDetail activated');
     setTimeout(() => {
       const targetPosition = [0, 0];
       window.scrollTo(...targetPosition);
@@ -69,9 +75,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #postDetail {
   text-align: left;
+  // width: 100%;
 
   .van-nav-bar__left {
     left: 4px;
