@@ -28,10 +28,10 @@ export default {
   computed: {},
   mounted() {
     this.loadContentAndReply();
-    // setTimeout(() => {
-    //   const targetPosition = [0, 0];
-    //   window.scrollTo(...targetPosition);
-    // }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+    setTimeout(() => {
+      const targetPosition = [0, 0];
+      window.scrollTo(...targetPosition);
+    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
   },
   activated() {
     console.log('PostDetail activated');
