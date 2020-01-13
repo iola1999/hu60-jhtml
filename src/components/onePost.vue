@@ -81,6 +81,10 @@ export default {
         height: 20px;
         margin-right: 2px;
       }
+      
+      .post-info-count {
+        line-height: 20px;
+      }
     }
   }
 }
