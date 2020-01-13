@@ -1,5 +1,5 @@
 <template>
-  <div class="Posts">
+  <div class="PostList">
     <van-pull-refresh v-model="isRefreshing" @refresh="onRefresh">
       <van-list
         v-model="isLoadingMore"
@@ -7,16 +7,23 @@
         finished-text="没有更多了"
         @load="onLoadingMore"
       >
-        <van-cell
-          v-for="onePost in postsList"
+        <!-- <van-cell
+          v-for="onePost in PostList"
           :key="onePost.topic_id"
           size="large"
           :value="onePost.title"
           is-link
           :to="{ name: 'PostDetail', query: { topic_id: onePost.topic_id, mtime:onePost.mtime } }"
-        >
-          <!-- 模仿 v2 的思路，入参加上帖子活跃时间 mtime（需要确认一下这个是帖子编辑时间还是最后回复时间），就能在无更新时缓存，有更新时重新加载了 -->
-        </van-cell>
+        >-->
+        <!-- 入参加上帖子活跃时间 mtime（需要确认一下这个是帖子编辑时间还是最后回复时间），就能在无更新时缓存，有更新时重新加载了 -->
+        <!-- 上面这条 考虑后还是暂时不缓存了，加了动画后坑太多了 -->
+        <!-- </van-cell> -->
+        <onePost
+          v-for="onePost in PostList"
+          :key="onePost.topic_id"
+          :onePostInfo="onePost"
+          @click.native="handleClickPost(onePost)"
+        />
       </van-list>
     </van-pull-refresh>
   </div>
@@ -24,13 +31,14 @@
 
 <script>
 import * as hu60Api from '@/api/hu60Api';
+import onePost from '@/components/onePost';
 
 export default {
-  name: 'Posts',
-  components: {},
+  name: 'PostList',
+  components: { onePost },
   data() {
     return {
-      postsList: [],
+      PostList: [],
       isLoadingMore: false, // 加载更多
       isRefreshing: false, // 刷新
       isLoadedAllPosts: false,
@@ -50,29 +58,35 @@ export default {
   //   next();
   // },
   methods: {
-    loadPostsList(pageNumber) {
+    loadPostList(pageNumber) {
       return hu60Api.listNewPosts(pageNumber).then((response) => {
         if (response.data.newTopicList.length === 0) {
           this.isLoadedAllPosts = true;
         } else {
-          this.postsList.push(...response.data.newTopicList);
+          this.PostList.push(...response.data.newTopicList);
           this.loadedPageCount += 1;
         }
       });
     },
     onLoadingMore() {
       this.isLoadingMore = true;
-      this.loadPostsList(this.loadedPageCount + 1).then(() => {
+      this.loadPostList(this.loadedPageCount + 1).then(() => {
         this.isLoadingMore = false;
       });
     },
     onRefresh() {
-      this.postsList = [];
+      this.PostList = [];
       this.isLoadedAllPosts = false;
       this.loadedPageCount = 0;
       this.isRefreshing = true; // 刷新
-      this.loadPostsList(this.loadedPageCount + 1).then(() => {
+      this.loadPostList(this.loadedPageCount + 1).then(() => {
         this.isRefreshing = false;
+      });
+    },
+    handleClickPost(onePost) {
+      this.$router.push({
+        name: 'PostDetail',
+        query: { topic_id: onePost.topic_id, mtime: onePost.mtime },
       });
     },
   },
@@ -80,7 +94,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.Posts {
+.PostList {
   text-align: left;
   position: absolute;
   width: 100%;

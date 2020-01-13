@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive include="Posts,Chatroom,My,PostDetail">
+      <keep-alive include="PostList,Chatroom,My,PostDetail">
         <!-- 复用 PostDetail，且 key 使用 fullPath，可以缓存已浏览（且未活跃）的帖子，体验好一丢丢 -->
         <router-view :style="styleObj" :key="$route.fullPath" class="appView" />
       </keep-alive>
     </transition>
     <van-tabbar active-color="#197b30" inactive-color="#000" route v-show="!$route.meta.fullScreen">
-      <van-tabbar-item name="Posts" icon="orders-o" replace to="/Posts">帖子</van-tabbar-item>
+      <van-tabbar-item name="PostList" icon="orders-o" replace to="/PostList">帖子</van-tabbar-item>
       <van-tabbar-item name="Chatroom" icon="chat-o" replace to="/Chatroom">聊天室</van-tabbar-item>
       <van-tabbar-item name="My" icon="user-o" replace to="/My">我的</van-tabbar-item>
     </van-tabbar>
@@ -20,7 +20,7 @@ export default {
   components: {},
   data() {
     return {
-      showingTab: 'Posts',
+      showingTab: 'PostList',
       transitionName: '',
     };
   },

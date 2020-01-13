@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Posts from '../views/Posts.vue';
+import PostList from '../views/PostList.vue';
 import PostDetail from '../views/PostDetail.vue';
 import Chatroom from '../views/Chatroom';
 import My from '../views/My';
@@ -12,12 +12,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: 'Posts',
+    redirect: 'PostList',
   },
   {
-    path: '/Posts',
-    name: 'Posts',
-    component: Posts,
+    path: '/PostList',
+    name: 'PostList',
+    component: PostList,
     meta: {
       // title: '虎绿林 编程学院',
       index: 10, // 页面层级，用于切换时判断动画方向
