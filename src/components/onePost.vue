@@ -6,12 +6,19 @@
       <!-- <img class="post-avatar" :src="'https://hu60.net/upload/default.jpg'" alt="头像" /> -->
       <img
         class="post-avatar"
-        :src="'http://qiniu.img.hu60.cn/avatar/'+onePostInfo.uid+'.jpg'"
+        :src="'http://qiniu.img.hu60.cn/avatar/' + onePostInfo.uid + '.jpg'"
         onerror="onerror=null;src='https://hu60.net/upload/default.jpg'"
-        alt="."
       />
       <span class="post-author-name">{{ onePostInfo.uinfo.name }}</span>
       <span class="post-forum-name">{{ onePostInfo.forum_name }}</span>
+      <div class="comment-and-read">
+        <img class="post-info-icon" src="@/assets/comment_count.png" />
+        <span class="post-info-count">{{ onePostInfo.reply_count }}</span>
+      </div>
+      <div class="comment-and-read">
+        <img class="post-info-icon" src="@/assets/read_count.png" />
+        <span class="post-info-count">{{ onePostInfo.read_count }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -32,9 +39,10 @@ export default {
 <style scoped lang="scss">
 .one-post {
   // height: 75px;
-  width: 100%;
+  width: calc(100% - 32px);
   border-bottom: 1px solid #dddddd;
-  padding: 2px 3px;
+  margin: 2px 8px;
+  padding: 2px 8px;
 
   .post-title {
     margin-bottom: 2px;
@@ -59,6 +67,20 @@ export default {
       border: 1px solid #dddddd;
       border-radius: 4px;
       margin-left: 8px;
+      padding: 2px;
+    }
+
+    .comment-and-read {
+      float: right;
+      display: flex;
+      margin-right: 8px;
+      margin-top: 5px;
+
+      .post-info-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+      }
     }
   }
 }
