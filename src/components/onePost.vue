@@ -11,6 +11,7 @@
       />
       <span class="post-author-name">{{ onePostInfo.uinfo.name }}</span>
       <span class="post-forum-name">{{ onePostInfo.forum_name }}</span>
+      <span class="post-forum-lastactivetime">{{ lastActiveTime }}</span>
       <div class="comment-and-read">
         <img class="post-info-icon" src="@/assets/comment_count.png" />
         <span class="post-info-count">{{ onePostInfo.reply_count }}</span>
@@ -24,6 +25,8 @@
 </template>
 
 <script>
+import formatMsgTime from '@/util/formatMsgTime';
+
 export default {
   name: 'onePost',
   props: {
@@ -32,7 +35,11 @@ export default {
       default: () => null,
     },
   },
-  computed: {},
+  computed: {
+    lastActiveTime() {
+      return formatMsgTime(1000 * this.onePostInfo.mtime);
+    },
+  },
 };
 </script>
 
@@ -70,6 +77,10 @@ export default {
       padding: 2px;
     }
 
+    .post-forum-lastactivetime {
+      margin-left: 8px;
+    }
+
     .comment-and-read {
       float: right;
       display: flex;
@@ -81,7 +92,7 @@ export default {
         height: 20px;
         margin-right: 2px;
       }
-      
+
       .post-info-count {
         line-height: 20px;
       }
