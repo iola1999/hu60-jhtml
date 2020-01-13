@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <keep-alive include="PostList,Chatroom,My,PostDetail">
+      <keep-alive include="PostList,Chatroom,My">
+        <!-- ,PostDetail  不缓存帖子详情页面了 -->
         <!-- 复用 PostDetail，且 key 使用 fullPath，可以缓存已浏览（且未活跃）的帖子，体验好一丢丢 -->
         <router-view :style="styleObj" :key="$route.fullPath" class="appView" />
       </keep-alive>
