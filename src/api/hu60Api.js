@@ -50,6 +50,22 @@ export const getPostDetailAndReply = (topic_id, replyPageNumber = 1) => {
  * @returns {Promise}
  */
 export const getSelfInfo = () => {
-  const requestUrl = '/user.index.json';
-  return httpFetch.get(requestUrl, {});
+  // const requestUrl = '/user.index.json';
+  const requestUrl = '/tools.ua.html'; // 用于测试 devServer 的代理结果
+  return httpFetch.post(requestUrl, {});
+};
+
+/**
+ * 登录
+ * @returns {Promise}
+ */
+export const login = () => {
+  const requestUrl = '/user.login.json';
+  const loginData = {
+    type: '1',
+    name: '', // 测试中
+    pass: '',
+    go: '登录',
+  };
+  return httpFetch.post(requestUrl, loginData);
 };

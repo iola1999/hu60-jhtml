@@ -18,16 +18,23 @@ export default {
   data() {
     return {
       myUserInfo: {},
+      loginResponseData: {},
     };
   },
   created() {},
   mounted() {
+    this.login();
     this.getSelfInfo();
   },
   methods: {
     getSelfInfo() {
       Hu60Api.getSelfInfo().then((response) => {
         this.myUserInfo = response.data;
+      });
+    },
+    login() {
+      Hu60Api.login().then((response) => {
+        this.loginResponseData = response.data;
       });
     },
   },
