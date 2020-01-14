@@ -15,10 +15,12 @@
 <script>
 import * as hu60Api from '@/api/hu60Api';
 import topicHead from '@/components/topicHead';
+import { scrollToLeavingPosition } from '@/mixins/scrollToLeavingPosition';
 
 export default {
   name: 'PostDetail',
   components: { topicHead },
+  mixins: [scrollToLeavingPosition],
   data() {
     return {
       postDetailData: null,
@@ -28,18 +30,18 @@ export default {
   computed: {},
   mounted() {
     this.loadContentAndReply();
-    setTimeout(() => {
-      const targetPosition = [0, 0];
-      window.scrollTo(...targetPosition);
-    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+    // setTimeout(() => {
+    //   const targetPosition = [0, 0];
+    //   window.scrollTo(...targetPosition);
+    // }, 300); // 250 毫秒的动画过渡时间，稍微再加点
   },
-  activated() {
-    console.log('PostDetail activated');
-    setTimeout(() => {
-      const targetPosition = [0, 0];
-      window.scrollTo(...targetPosition);
-    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
-  },
+  // activated() {
+  //   console.log('PostDetail activated');
+  //   setTimeout(() => {
+  //     const targetPosition = [0, 0];
+  //     window.scrollTo(...targetPosition);
+  //   }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+  // },
   methods: {
     loadContentAndReply() {
       hu60Api

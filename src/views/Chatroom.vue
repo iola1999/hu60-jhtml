@@ -22,9 +22,11 @@
 <script>
 import * as Hu60Api from '@/api/hu60Api';
 import formatMsgTime from '@/util/formatMsgTime';
+import { scrollToLeavingPosition } from '@/mixins/scrollToLeavingPosition';
 
 export default {
   name: 'Chatroom',
+  mixins: [scrollToLeavingPosition],
   data() {
     return {
       currentChatroomName: '', // 当前聊天室名称
@@ -53,17 +55,6 @@ export default {
     this.getChatRoomList();
   },
   mounted() {},
-  // 在被缓存，且需要重新进入时返回离开时位置的页面，加上如下 activated、beforeRouteLeave
-  activated() {
-    setTimeout(() => {
-      const targetPosition = this.$route.meta.scrollTo || [0, 0];
-      window.scrollTo(...targetPosition);
-    }, 300); // 250 毫秒的动画过渡时间，稍微再加点
-  },
-  beforeRouteLeave(to, from, next) {
-    from.meta.scrollTo = [window.scrollX, window.scrollY];
-    next();
-  },
   watch: {
     currentChatroomName: {
       handler(newValue) {
