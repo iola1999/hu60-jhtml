@@ -44,3 +44,12 @@ export const getPostDetailAndReply = (topic_id, replyPageNumber = 1) => {
   const requestUrl = '/bbs.topic.' + topic_id + '.' + replyPageNumber + '.json';
   return httpFetch.get(requestUrl, {});
 };
+
+/**
+ * 获取个人（本人）信息
+ * @returns {Promise}
+ */
+export const getSelfInfo = () => {
+  const requestUrl = '/user.index.json';
+  return httpFetch.get(requestUrl, {});
+};

@@ -33,7 +33,7 @@ export default {
   watch: {
     $route(to, from) {
       console.log(this.$route);
-      console.log(to.meta.index, from.meta.index);
+      console.log(to.meta, from.meta);
       //如果to索引大于from索引,判断为前进状态,反之则为后退状态
       this.transitionName =
         to.meta.index > from.meta.index
