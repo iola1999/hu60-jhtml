@@ -16,7 +16,7 @@ export const scrollToLeavingPosition = {
     if (from.name !== 'PostDetail') {
       // 如果是离开帖子详情页面则不存储离开位置。也可以优化为按 fullPath 存储 scrollTo
       from.meta.scrollTo = [window.scrollX, window.scrollY];
-      next();
     }
+    next();
   },
 };
