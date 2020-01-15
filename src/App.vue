@@ -25,6 +25,16 @@ export default {
       transitionName: '',
     };
   },
+  mounted() {
+    // // 测试下添加到桌面。在移动端 chrome 上确实可以类 PWA 的体验。还有待调试，先不折腾了
+    // const manifestDom = document.createElement('link');
+    // manifestDom.rel = 'manifest';
+    // manifestDom.href = 'http://qiniu.img.hu60.cn/file-hash-json-bc38a95752d93cb90dfca059ec111b1e673.json'; // 要注意 CORB、https
+    // document
+    //   .getElementsByTagName('HEAD')
+    //   .item(0)
+    //   .appendChild(manifestDom);
+  },
   computed: {
     styleObj() {
       return 'margin-bottom:' + (this.$route.meta.fullScreen ? '0' : '50px'); // 底部存在标签栏时，防止内容被遮挡
