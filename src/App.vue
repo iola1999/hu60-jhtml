@@ -25,6 +25,16 @@ export default {
       transitionName: '',
     };
   },
+  mounted() {
+    // 测试下添加到桌面
+    const manifestDom = document.createElement('link');
+    manifestDom.rel = 'manifest';
+    manifestDom.href = 'https://www.gotosjtu.cn/hu60-jhtml/manifest.json';
+    document
+      .getElementsByTagName('HEAD')
+      .item(0)
+      .appendChild(manifestDom);
+  },
   computed: {
     styleObj() {
       return 'margin-bottom:' + (this.$route.meta.fullScreen ? '0' : '50px'); // 底部存在标签栏时，防止内容被遮挡
