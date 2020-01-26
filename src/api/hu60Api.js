@@ -1,5 +1,6 @@
 import httpFetch from '@/api/httpFetch';
 // import store from "@/store";
+import qs from 'qs'
 
 /**
  * 获取首页帖子列表
@@ -63,9 +64,9 @@ export const login = () => {
   const requestUrl = '/user.login.json';
   const loginData = {
     type: '1',
-    name: '', // 测试中
-    pass: '',
+    name: 'testName', // 测试中
+    pass: 'testPass',
     go: '登录',
   };
-  return httpFetch.post(requestUrl, loginData);
+  return httpFetch.post(requestUrl, qs.stringify(loginData));
 };
