@@ -50,9 +50,9 @@ export const getPostDetailAndReply = (topic_id, replyPageNumber = 1) => {
  * @returns {Promise}
  */
 export const getSelfInfo = () => {
-  // const requestUrl = '/user.index.json';
-  const requestUrl = '/tools.ua.html'; // 用于测试 devServer 的代理结果
-  return httpFetch.post(requestUrl, {});
+  const requestUrl = '/user.index.json';
+  // const requestUrl = '/tools.ua.html'; // 用于测试 devServer 的代理结果
+  return httpFetch.get(requestUrl);
 };
 
 /**

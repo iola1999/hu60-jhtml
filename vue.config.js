@@ -8,7 +8,7 @@ module.exports = {
         headers: {
           referer: 'https://hu60.cn',
           origin: 'https://hu60.cn',
-          'Content-Type': 'application/x-www-form-urlencoded',
+          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         // onProxyReq: (proxyReq, _req, _res) => {
         //   // 直接修改 req 是没用的，应该用 setHeader
@@ -19,20 +19,20 @@ module.exports = {
         //   proxyReq.setHeader('Content-Type', 'application/x-www-form-urlencoded');
         //   proxyReq.setHeader('content-type', 'application/x-www-form-urlencoded');
         // },
-        // onProxyRes: (proxyRes)=> {
-        //   var cookies = proxyRes.headers['set-cookie'];
-        //   var cookieRegex = /Domain=\.?hu60.cn/i;
-        //   if (cookies) {
-        //     var newCookie = cookies.map(function(cookie) {
-        //       if (cookieRegex.test(cookie)) {
-        //         return cookie.replace(cookieRegex, 'Domain=localhost');
-        //       }
-        //       return cookie;
-        //     });
-        //     delete proxyRes.headers['set-cookie'];
-        //     proxyRes.headers['set-cookie'] = newCookie;
-        //   }
-        // },
+        onProxyRes: (proxyRes)=> {
+          var cookies = proxyRes.headers['set-cookie'];
+          var cookieRegex = /domain=hu60.cn/i;
+          if (cookies) {
+            var newCookie = cookies.map(function(cookie) {
+              if (cookieRegex.test(cookie)) {
+                return cookie.replace(cookieRegex, 'domain=localhost');
+              }
+              return cookie;
+            });
+            delete proxyRes.headers['set-cookie'];
+            proxyRes.headers['set-cookie'] = newCookie;
+          }
+        },
       },
     },
   },
