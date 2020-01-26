@@ -1,6 +1,7 @@
 import axios from 'axios';
 // import store from "@/store";
 // import router from "@/router";
+import qs from 'qs';
 
 const httpFetch = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/q.php' : '/api',
@@ -11,18 +12,19 @@ const httpFetch = axios.create({
   },
 });
 
-// httpFetch.interceptors.request.use(
-//   (config) => {
-//     if (config.method === 'post') {
-//       config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-//     }
-//     console.log(config)
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   },
-// );
+httpFetch.interceptors.request.use(
+  (config) => {
+    if (config.method === 'post' && config.data) {
+      // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      config.data = qs.stringify(config.data);
+    }
+    // console.log(config);
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 // 响应拦截器
 httpFetch.interceptors.response.use(
