@@ -46,13 +46,16 @@ export const getPostDetailAndReply = (topic_id, replyPageNumber = 1) => {
 };
 
 /**
- * 获取个人（本人）信息
+ * 获取个人（本人）信息。设置回复楼层展示顺序也是这个接口
  * @returns {Promise}
  */
-export const getSelfInfo = () => {
-  const requestUrl = '/user.index.json';
-  // const requestUrl = '/tools.ua.html'; // 用于测试 devServer 的代理结果
-  // user.index.json 接口的返回表明似乎没能正确传递 cookie，但是看 tools.ua.json 的响应是有 cookie 的，或许应该考虑开发过程中换一种跨域方式（如 nginx）（线上无此问题）
+export const getSelfInfo = (floorReverse) => {
+  let requestUrl = '';
+  if (floorReverse === '0' || floorReverse === '1') {
+    requestUrl = '/user.index.json?floorReverse=' + floorReverse;
+  } else {
+    requestUrl = '/user.index.json';
+  }
   return httpFetch.get(requestUrl);
 };
 

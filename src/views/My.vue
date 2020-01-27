@@ -3,14 +3,12 @@
     <van-loading size="64px" v-if="myPageStatus === 'unknown'"
       >加载中...</van-loading
     >
-    <div v-if="myPageStatus === 'loggedIn'">
-      <img
-        class="my-avatar"
-        :src="'http://qiniu.img.hu60.cn/avatar/' + myUserInfo.uid + '.jpg'"
-        onerror="onerror=null;src='https://hu60.net/upload/default.jpg'"
-      />
-      {{ myUserInfo }}
-    </div>
+    <UserProfile
+      v-if="myPageStatus === 'loggedIn'"
+      :userInfo="myUserInfo"
+      :isSelf="true"
+      @refresh-self-user-info="getSelfInfo"
+    />
     <Login
       v-if="myPageStatus === 'needLogin'"
       @login-success="handleLoginSuccess"
@@ -23,11 +21,12 @@
 import { scrollToLeavingPosition } from '@/mixins/scrollToLeavingPosition';
 import * as Hu60Api from '@/api/hu60Api';
 import Login from './Login';
+import UserProfile from './UserProfile';
 
 export default {
   name: 'My',
   mixins: [scrollToLeavingPosition],
-  components: { Login },
+  components: { Login, UserProfile },
   data() {
     return {
       myUserInfo: {},
@@ -40,8 +39,8 @@ export default {
     this.getSelfInfo();
   },
   methods: {
-    getSelfInfo() {
-      Hu60Api.getSelfInfo().then((response) => {
+    getSelfInfo(floorReverse) {
+      Hu60Api.getSelfInfo(floorReverse).then((response) => {
         if (response.data.uid) {
           this.myUserInfo = response.data;
           this.myPageStatus = 'loggedIn';
@@ -64,12 +63,5 @@ export default {
 #My {
   padding: 4px;
   height: 100%;
-
-  .my-avatar {
-    text-align: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 40px;
-  }
 }
 </style>

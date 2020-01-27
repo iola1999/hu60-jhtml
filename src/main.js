@@ -20,7 +20,9 @@ import { Field } from 'vant';
 import { Col, Row } from 'vant';
 import { Picker } from 'vant';
 import { Popup } from 'vant';
+import { Switch } from 'vant';
 
+Vue.use(Switch);
 Vue.use(Popup);
 Vue.use(Picker);
 Vue.use(Col);
