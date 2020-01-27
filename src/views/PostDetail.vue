@@ -70,7 +70,7 @@ export default {
       this.$toast('TODO: 点了回复');
     },
     onClickMorkActions() {
-      this.$toast('TODO: 点了右上角按钮，弹出一些菜单');
+      this.$toast('TODO: 点了右上角按钮，弹出一些菜单。ActionSheet 上拉菜单');
     },
   },
   watch: {},

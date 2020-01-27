@@ -60,13 +60,7 @@ export const getSelfInfo = () => {
  * 登录
  * @returns {Promise}
  */
-export const login = () => {
+export const login = (loginData) => {
   const requestUrl = '/user.login.json';
-  const loginData = {
-    type: '1',
-    name: 'testName', // 测试中
-    pass: 'testPass',
-    go: '登录',
-  };
   return httpFetch.post(requestUrl, loginData);
 };
