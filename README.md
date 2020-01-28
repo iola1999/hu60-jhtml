@@ -6,6 +6,8 @@
 
 [https://hu60.cn/q.php/bbs.topic.92126.html](https://hu60.cn/q.php/bbs.topic.92126.html)
 
+另外提供一个反代版本方便体验：[https://www.gotosjtu.cn/hu60-jhtml](https://www.gotosjtu.cn/hu60-jhtml)
+
 # 已实现的功能
 
 - [x] 首页帖子列表展示
