@@ -1,5 +1,5 @@
 <template>
-  <div class="topic-head">
+  <div class="topic-head" v-if="postDetailData">
     <div class="topic-title">
       {{ postDetailData ? postDetailData.tMeta.title : '加载中...' }}
     </div>

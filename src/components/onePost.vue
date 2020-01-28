@@ -1,9 +1,7 @@
 <template>
   <div class="one-post">
-    <!-- 上面标题，下面头像，昵称，板块，发布时间，阅读数，评论数 -->
     <div class="post-title van-multi-ellipsis--l2">{{ onePostInfo.title }}</div>
     <div class="post-info">
-      <!-- <img class="post-avatar" :src="'https://hu60.net/upload/default.jpg'" alt="头像" /> -->
       <img
         class="post-avatar"
         :src="'http://qiniu.img.hu60.cn/avatar/' + onePostInfo.uid + '.jpg'"

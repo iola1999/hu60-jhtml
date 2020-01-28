@@ -5,7 +5,7 @@
         readonly
         clickable
         label="登录类型"
-        :value="loginData.typeName"
+        :value="loginData.typeName + ' ▼'"
         @click="showLoginTypePicker = true"
       />
       <van-popup v-model="showLoginTypePicker" position="bottom">

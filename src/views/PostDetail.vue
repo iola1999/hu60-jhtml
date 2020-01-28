@@ -8,52 +8,60 @@
         <van-icon name="wap-nav" size="18" @click="onClickMorkActions" />
       </span>
     </van-nav-bar>
+    <!-- 帖子信息、楼主内容 -->
     <topicHead :postDetailData="postDetailData" />
+    <!-- 帖子的回复 -->
+    <div class="topic-reply" v-if="postDetailData">
+      <van-list
+        v-model="isLoadingMoreReplies"
+        :finished="isLoadedAllReplies"
+        finished-text="没有更多回复了"
+        @load="onLoadingMoreReplies"
+      >
+        <!-- 这里再用一下 SwipeCell 滑动单元格 -->
+        <oneReply
+          v-for="replyItem in postDetailData.tContents.slice(1)"
+          :key="replyItem.id"
+          :oneReplyInfo="replyItem"
+        />
+      </van-list>
+    </div>
   </div>
 </template>
 
 <script>
 import * as hu60Api from '@/api/hu60Api';
 import topicHead from '@/components/topicHead';
+import oneReply from '@/components/oneReply';
 import { scrollToLeavingPosition } from '@/mixins/scrollToLeavingPosition';
 
 export default {
   name: 'PostDetail',
-  components: { topicHead },
+  components: { topicHead, oneReply },
   mixins: [scrollToLeavingPosition],
   data() {
     return {
       postDetailData: null,
+      isLoadingMoreReplies: false, // 加载更多
+      isLoadedAllReplies: false, // 已加载完全部回复
       loadedPageCount: 0, // 帖子详情已加载页数，总页数是 maxPage
     };
   },
   computed: {},
   mounted() {
-    this.loadContentAndReply();
-    // setTimeout(() => {
-    //   const targetPosition = [0, 0];
-    //   window.scrollTo(...targetPosition);
-    // }, 300); // 250 毫秒的动画过渡时间，稍微再加点
+    this.loadContentAndReply(this.loadedPageCount + 1);
   },
-  // activated() {
-  //   console.log('PostDetail activated');
-  //   setTimeout(() => {
-  //     const targetPosition = [0, 0];
-  //     window.scrollTo(...targetPosition);
-  //   }, 300); // 250 毫秒的动画过渡时间，稍微再加点
-  // },
   methods: {
-    loadContentAndReply() {
-      hu60Api
-        .getPostDetailAndReply(
-          this.$route.query.topic_id,
-          this.loadedPageCount + 1,
-        )
+    loadContentAndReply(pageNumber) {
+      return hu60Api
+        .getPostDetailAndReply(this.$route.query.topic_id, pageNumber)
         .then((response) => {
+          this.loadedPageCount += 1;
           if (!this.postDetailData) {
             this.postDetailData = response.data;
           } else {
             // 拼接回复列表
+            this.postDetailData.tContents.push(...response.data.tContents);
           }
         });
     },
@@ -71,6 +79,22 @@ export default {
     },
     onClickMorkActions() {
       this.$toast('TODO: 点了右上角按钮，弹出一些菜单。ActionSheet 上拉菜单');
+    },
+    onLoadingMoreReplies() {
+      console.log('onLoadingMoreReplies', this.postDetailData);
+      if (this.postDetailData) {
+        if (this.postDetailData.maxPage > this.loadedPageCount) {
+          this.isLoadingMoreReplies = true;
+          this.loadContentAndReply(this.loadedPageCount + 1).then(() => {
+            this.isLoadingMoreReplies = false;
+          });
+        } else {
+          this.isLoadedAllReplies = true;
+          this.isLoadingMoreReplies = false;
+        }
+      } else {
+        this.isLoadingMoreReplies = false;
+      }
     },
   },
   watch: {},
@@ -93,6 +117,10 @@ export default {
     .van-icon {
       margin-left: 12px;
     }
+  }
+
+  .topic-reply {
+    margin: 2px 4px;
   }
 }
 </style>
