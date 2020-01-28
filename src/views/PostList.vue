@@ -7,22 +7,14 @@
         finished-text="没有更多了"
         @load="onLoadingMore"
       >
-        <!-- <van-cell
-          v-for="onePost in PostList"
-          :key="onePost.topic_id"
-          size="large"
-          :value="onePost.title"
-          is-link
-          :to="{ name: 'PostDetail', query: { topic_id: onePost.topic_id, mtime:onePost.mtime } }"
-        >-->
         <!-- 入参加上帖子活跃时间 mtime（需要确认一下这个是帖子编辑时间还是最后回复时间），就能在无更新时缓存，有更新时重新加载了 -->
         <!-- 上面这条 考虑后还是暂时不缓存了，加了动画后坑太多了 -->
         <!-- </van-cell> -->
         <onePost
-          v-for="onePost in PostList"
-          :key="onePost.topic_id"
-          :onePostInfo="onePost"
-          @click.native="handleClickPost(onePost)"
+          v-for="postItem in PostList"
+          :key="postItem.topic_id"
+          :onePostInfo="postItem"
+          @click.native="handleClickPost(postItem)"
         />
       </van-list>
     </van-pull-refresh>

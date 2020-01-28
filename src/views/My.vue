@@ -1,18 +1,18 @@
 <template>
   <div id="My">
-    <van-loading size="64px" v-if="myPageStatus === 'unknown'"
+    <van-loading class="loading" size="64px" v-if="myPageStatus === 'unknown'"
       >加载中...</van-loading
     >
-    <UserProfile
+    <userProfile
       v-if="myPageStatus === 'loggedIn'"
       :userInfo="myUserInfo"
       :isSelf="true"
       @refresh-self-user-info="getSelfInfo"
     />
-    <Login
+    <login
       v-if="myPageStatus === 'needLogin'"
       @login-success="handleLoginSuccess"
-    ></Login>
+    ></login>
     <!-- <van-button type="primary" @click="getSelfInfo()">获取个人信息</van-button> -->
   </div>
 </template>
@@ -20,13 +20,13 @@
 <script>
 import { scrollToLeavingPosition } from '@/mixins/scrollToLeavingPosition';
 import * as Hu60Api from '@/api/hu60Api';
-import Login from './Login';
-import UserProfile from './UserProfile';
+import login from '@/components/login';
+import userProfile from '@/components/userProfile';
 
 export default {
   name: 'My',
   mixins: [scrollToLeavingPosition],
-  components: { Login, UserProfile },
+  components: { login, userProfile },
   data() {
     return {
       myUserInfo: {},
@@ -63,5 +63,8 @@ export default {
 #My {
   padding: 4px;
   height: 100%;
+  .loading {
+    text-align: center;
+  }
 }
 </style>

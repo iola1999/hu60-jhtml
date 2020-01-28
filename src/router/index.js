@@ -4,7 +4,7 @@ import PostList from '../views/PostList.vue';
 import PostDetail from '../views/PostDetail.vue';
 import Chatroom from '../views/Chatroom';
 import My from '../views/My';
-import Login from '../views/Login';
+import login from '@/components/login';
 import PageNotFound from '../views/PageNotFound';
 
 Vue.use(VueRouter);
@@ -51,7 +51,7 @@ const routes = [
   {
     path: '/Login', // 登录
     name: 'Login',
-    component: Login,
+    component: login,
     meta: {
       index: 99,
     },

@@ -1,12 +1,12 @@
 <template>
-  <div id="UserProfile">
-    <div class="my-avatar">
+  <div id="userProfile">
+    <div class="user-avatar">
       <img
         :src="'http://qiniu.img.hu60.cn/avatar/' + userInfo.uid + '.jpg'"
         onerror="onerror=null;src='https://hu60.net/upload/default.jpg'"
       />
     </div>
-    <div class="my-profile">
+    <div class="user-profile">
       <van-cell-group>
         <van-cell title="uid" :value="userInfo.uid" />
         <van-cell title="昵称" :value="userInfo.name" />
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'UserProfile',
+  name: 'userProfile',
   data() {
     return {
       isSwitchLoading: false, // watch userInfo，变化后置非
@@ -72,8 +72,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#UserProfile {
-  .my-avatar {
+#userProfile {
+  .user-avatar {
     text-align: center;
     margin: 30px 0 15px 0;
     img {
@@ -82,7 +82,7 @@ export default {
       border-radius: 40px;
     }
   }
-  .my-profile {
+  .user-profile {
     padding: 8px;
   }
 }
