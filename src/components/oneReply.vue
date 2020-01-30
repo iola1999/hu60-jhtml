@@ -7,8 +7,9 @@
         onerror="onerror=null;src='https://hu60.net/upload/default.jpg'"
       />
       <span class="reply-author-name">{{ oneReplyInfo.uinfo.name }}</span>
+      <span class="reply-atTA" @click="debuggggg">@Ta</span>
       <span class="reply-forum-lastactivetime">{{ lastActiveTime }}</span>
-      #{{ oneReplyInfo.floor }}
+      <span class="reply-floor">#{{ oneReplyInfo.floor }}</span>
 
       <div class="reply-content" v-html="oneReplyInfo.content">
         {{ oneReplyInfo.content }}
@@ -33,6 +34,11 @@ export default {
       return formatMsgTime(1000 * this.oneReplyInfo.mtime);
     },
   },
+  methods: {
+    debuggggg() {
+      console.log('要at此人：', this.oneReplyInfo);
+    },
+  },
 };
 </script>
 
@@ -41,8 +47,8 @@ export default {
   // height: 75px;
   // width: calc(100% - 32px);
   border-bottom: 1px solid #dddddd;
-  margin: 2px 8px;
-  padding: 2px 8px;
+  margin: 2px;
+  padding: 2px;
 
   .reply-info {
     color: #777;
@@ -57,10 +63,22 @@ export default {
 
     .reply-author-name {
       margin-left: 8px;
+      line-height: 30px;
+    }
+
+    .reply-atTA {
+      margin: 0 8px;
+      color: #08c;
     }
 
     .reply-forum-lastactivetime {
       margin-left: 8px;
+    }
+
+    .reply-floor {
+      float: right;
+      display: flex;
+      margin-right: 4px;
     }
   }
 }

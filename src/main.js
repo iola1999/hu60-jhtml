@@ -21,7 +21,9 @@ import { Col, Row } from 'vant';
 import { Picker } from 'vant';
 import { Popup } from 'vant';
 import { Switch } from 'vant';
+import { SwipeCell } from 'vant';
 
+Vue.use(SwipeCell);
 Vue.use(Switch);
 Vue.use(Popup);
 Vue.use(Picker);

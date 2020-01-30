@@ -1,6 +1,5 @@
 <template>
   <div id="postDetail">
-    <!-- :title="postDetailData ? postDetailData.tMeta.title : '加载中...'" -->
     <van-nav-bar left-text="返回" left-arrow @click-left="onClickLeft">
       <span slot="right" class="actions-top-right">
         <van-icon name="star-o" size="18" @click="onClickStar" />
@@ -18,7 +17,6 @@
         finished-text="没有更多回复了"
         @load="onLoadingMoreReplies"
       >
-        <!-- 这里再用一下 SwipeCell 滑动单元格 -->
         <oneReply
           v-for="replyItem in postDetailData.tContents.slice(1)"
           :key="replyItem.id"
@@ -120,7 +118,11 @@ export default {
   }
 
   .topic-reply {
-    margin: 2px 4px;
+    border: 1px solid #dddddd;
+    background-color: #fdfdfd;
+    padding: 4px;
+    margin: 0 4px 4px 4px;
+    border-radius: 3px;
   }
 }
 </style>
