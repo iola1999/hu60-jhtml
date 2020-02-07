@@ -10,10 +10,9 @@
       <span class="reply-atTA" @click="debuggggg">@Ta</span>
       <span class="reply-forum-lastactivetime">{{ lastActiveTime }}</span>
       <span class="reply-floor">#{{ oneReplyInfo.floor }}</span>
-
-      <div class="reply-content" v-html="oneReplyInfo.content">
-        {{ oneReplyInfo.content }}
-      </div>
+    </div>
+    <div class="reply-content" v-html="oneReplyInfo.content">
+      {{ oneReplyInfo.content }}
     </div>
   </div>
 </template>
@@ -47,12 +46,13 @@ export default {
   // height: 75px;
   // width: calc(100% - 32px);
   border-bottom: 1px solid #dddddd;
-  margin: 2px;
+  // margin: 2px;
   padding: 2px;
 
   .reply-info {
     color: #777;
     font-size: small;
+    margin-top: 3px;
 
     .reply-avatar {
       width: 30px;
@@ -80,6 +80,11 @@ export default {
       display: flex;
       margin-right: 4px;
     }
+  }
+
+  .reply-content {
+    margin: 2px 0 5px 0;
+    padding-left: 32px;
   }
 }
 </style>

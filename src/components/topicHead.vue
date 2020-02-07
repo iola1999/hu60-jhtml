@@ -65,7 +65,7 @@ export default {
   border: 1px solid #dddddd;
   background-color: #fdfdfd;
   padding: 4px;
-  margin: 0 4px 4px 4px;
+  margin: 48px 4px 4px 4px; // 46px 是顶部固定的 nav-bar
   border-radius: 3px;
 }
 

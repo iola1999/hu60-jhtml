@@ -1,6 +1,6 @@
 <template>
   <div id="postDetail">
-    <van-nav-bar left-text="返回" left-arrow @click-left="onClickLeft">
+    <van-nav-bar fixed left-text="返回" left-arrow @click-left="onClickLeft">
       <span slot="right" class="actions-top-right">
         <van-icon name="star-o" size="18" @click="onClickStar" />
         <van-icon name="edit" size="18" @click="onClickReply" />
