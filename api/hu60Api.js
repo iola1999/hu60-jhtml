@@ -11,7 +11,5 @@ export const listNewPosts = (pageNumber = 1) => {
 	const params = {
 		p: pageNumber,
 	};
-	return httpFetch.get(requestUrl, {
-		params
-	});
+	return httpFetch.get(requestUrl, params);
 };

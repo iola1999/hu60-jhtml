@@ -2,9 +2,9 @@
 import { getToken, setToken, removeToken } from '@/utils/auth';
 export default {
 	onLaunch: function() {
+		this.$store.dispatch('user/getCurrentLoginInfo');
 	},
 	onShow: function() {
-		this.$store.dispatch('user/getCurrentLoginInfo');
 	},
 	onHide: function() {
 	}

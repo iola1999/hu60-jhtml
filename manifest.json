@@ -1,136 +1,137 @@
 {
-	"name": "虎绿林",
-	"appid": "__UNI__B30B5EE",
-	"description": "虎绿林-jhtml-uniapp",
-	"versionName": "0.0.1",
-	"versionCode": 1,
-	"transformPx": false,
-	"app-plus": {
-		/* 5+App特有相关 */
-		"usingComponents": true,
-		"splashscreen": {
-			"alwaysShowBeforeRender": true,
-			"waiting": false,
-			"autoclose": true,
-			"delay": 0
-		},
-		"modules": {
-			"Speech": {}
-		},
-		/* 模块配置 */
-		"distribute": {
-			/* 应用发布信息 */
-			"android": {
-				/* android打包配置 */
-				"permissions": [
-					"<uses-feature android:name=\"android.hardware.camera\"/>",
-					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
-					"<uses-permission android:name=\"android.permission.CAMERA\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_MULTICAST_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-					"<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
-					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-					"<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-				],
-				"targetSdkVersion": 28,
-				"minSdkVersion": 23
-			},
-			"ios": {},
-			/* ios打包配置 */
-			"sdkConfigs": {
-				"ad": {},
-				"payment": {},
-				"speech": {
-					"baidu": {
-						"appid": "19921609",
-						"apikey": "otf9BpYia1XkxBtAEEhqEC0P",
-						"secretkey": "IVGwOCjSKV4fQT8ypc9c6IHfvxKN8Bih"
-					}
-				}
-			},
-			"icons": {
-				"android": {
-					"hdpi": "",
-					"xhdpi": "",
-					"xxhdpi": "",
-					"xxxhdpi": ""
-				},
-				"ios": {
-					"appstore": "",
-					"ipad": {
-						"app": "",
-						"app@2x": "",
-						"notification": "",
-						"notification@2x": "",
-						"proapp@2x": "",
-						"settings": "",
-						"settings@2x": "",
-						"spotlight": "",
-						"spotlight@2x": ""
-					},
-					"iphone": {
-						"app@2x": "",
-						"app@3x": "",
-						"notification@2x": "",
-						"notification@3x": "",
-						"settings@2x": "",
-						"settings@3x": "",
-						"spotlight@2x": "",
-						"spotlight@3x": ""
-					}
-				}
-			}
-		},
-		"compilerVersion": 3,
-		"nativePlugins": {}
-	},
-	/* SDK配置 */
-	"quickapp": {},
-	/* 快应用特有相关 */
-	"mp-weixin": {
-		/* 小程序特有相关 */
-		"appid": "",
-		"setting": {
-			"urlCheck": false,
-			"minified": true
-		},
-		"usingComponents": true
-	},
-	"h5": {
-		"router": {
-			"mode": "hash",
-			"base": "hu60-jhtml"
-		},
-		"optimization": {
-			"treeShaking": {
-				"enable": true
-			}
-		},
-		"domain": "hu60.cn",
-		"devServer": {
-			"port": 8000,
-			"disableHostCheck": true,
-			"proxy": {
-				"/api": {
-					"target": "https://hu60.cn/q.php",
-					"changeOrigin": true,
-					"secure": false,
-					"pathRewrite": {
-						"^/api": "/"
-					}
-				}
-			}
-		}
-	}
+    "name" : "虎绿林",
+    "appid" : "__UNI__B30B5EE",
+    "description" : "虎绿林-jhtml-uniapp",
+    "versionName" : "0.0.1",
+    "versionCode" : 1,
+    "transformPx" : false,
+    "app-plus" : {
+        /* 5+App特有相关 */
+        "usingComponents" : true,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : false,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {
+            "Speech" : {}
+        },
+        /* 模块配置 */
+        "distribute" : {
+            /* 应用发布信息 */
+            "android" : {
+                /* android打包配置 */
+                "permissions" : [
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_MULTICAST_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ],
+                "targetSdkVersion" : 28,
+                "minSdkVersion" : 23
+            },
+            "ios" : {},
+            /* ios打包配置 */
+            "sdkConfigs" : {
+                "ad" : {},
+                "payment" : {},
+                "speech" : {
+                    "baidu" : {
+                        "appid" : "19921609",
+                        "apikey" : "otf9BpYia1XkxBtAEEhqEC0P",
+                        "secretkey" : "IVGwOCjSKV4fQT8ypc9c6IHfvxKN8Bih"
+                    }
+                }
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : "",
+                    "xxxhdpi" : ""
+                },
+                "ios" : {
+                    "appstore" : "",
+                    "ipad" : {
+                        "app" : "",
+                        "app@2x" : "",
+                        "notification" : "",
+                        "notification@2x" : "",
+                        "proapp@2x" : "",
+                        "settings" : "",
+                        "settings@2x" : "",
+                        "spotlight" : "",
+                        "spotlight@2x" : ""
+                    },
+                    "iphone" : {
+                        "app@2x" : "",
+                        "app@3x" : "",
+                        "notification@2x" : "",
+                        "notification@3x" : "",
+                        "settings@2x" : "",
+                        "settings@3x" : "",
+                        "spotlight@2x" : "",
+                        "spotlight@3x" : ""
+                    }
+                }
+            }
+        },
+        "compilerVersion" : 3,
+        "nativePlugins" : {}
+    },
+    /* SDK配置 */
+    "quickapp" : {},
+    /* 快应用特有相关 */
+    "mp-weixin" : {
+        /* 小程序特有相关 */
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false,
+            "minified" : true
+        },
+        "usingComponents" : true
+    },
+    "h5" : {
+        "router" : {
+            "mode" : "hash",
+            "base" : "hu60-jhtml"
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
+        "domain" : "hu60.cn",
+        "devServer" : {
+            "port" : 8000,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/api" : {
+                    "target" : "https://hu60.cn/q.php",
+                    "changeOrigin" : true,
+                    "secure" : false,
+                    "pathRewrite" : {
+                        "^/api" : "/"
+                    }
+                }
+            },
+            "https" : true
+        }
+    }
 }
