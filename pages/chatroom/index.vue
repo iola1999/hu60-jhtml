@@ -11,15 +11,19 @@
 			</view>
 		</u-navbar>
 		<view>
-			<!-- 应该反序？向上滚动，再排查一下为什么滚动刷新无法触发。 -->
-			<view v-for="msgItem in chatMsgList" :key="msgItem.id">
-				<!-- SwipeAction at 他，帖子回复也是 -->
-				<p> {{msgItem.uinfo.name}}</p>
-				<view style="width: 100%;">
-					<rich-text :nodes="msgItem.content"></rich-text>
+			<scroll-view :style='"height: " +scrollViewHeight+"px;"' scroll-y="true" :scroll-top="scrollTop" :upper-threshold="150"
+			 @scrolltoupper="handleReachTop" @scrolltolower="handleReachBottom" @scroll="handleScroll">
+				<view id="chatroomMsgScroll">
+					<view v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :ref="'msgItem'+msgItem.id">
+						<!-- SwipeAction at 他，帖子回复也是 -->
+						<p> {{msgItem.uinfo.name}}</p>
+						<view style="width: 100%;">
+							<rich-text :nodes="msgItem.content"></rich-text>
+						</view>
+						<hr>
+					</view>
 				</view>
-				<hr>
-			</view>
+			</scroll-view>
 		</view>
 		<!-- 下面这两个view拆分成组件 -->
 		<view class="fab-container">
@@ -49,10 +53,15 @@
 				currentChatroomName: '',
 				chatroomList: [], // 全部聊天室列表，第一项（最新发言）是默认展示的。另外 没做新建聊天室（即手动输入名称进入聊天室）
 
+
 				loadedPageCount: 0, // 已加载的聊天室消息页数
+				isLoadingMsg: false,
 				maxPage: 1, // 一共多少页
 				totalMsgCount: 0,
-				chatMsgList: [],
+				reverseChatMsgList: [],
+				scrollViewHeight: 1200, // 这个必须指定高度，css没搞明白怎么计算，用js试试
+				scrollTop: 0,
+				scrollTopOld: 0, // 不是双向绑定的，要靠事件
 
 				isShowChatroomInputMsgbox: false
 			};
@@ -64,6 +73,13 @@
 		},
 		onReady() {
 			// mounted
+			const uniPageWrapper = document.getElementsByTagName("uni-page-wrapper")
+			console.log(uniPageWrapper)
+			if (uniPageWrapper[0]) {
+				// 它的高度已经减去了底部tabbar，再减顶部自己的导航条即可
+				this.scrollViewHeight = uniPageWrapper[0].offsetHeight - 60
+			}
+
 		},
 		computed: {},
 		methods: {
@@ -76,13 +92,54 @@
 				}
 			},
 			async loadCurrentRoomMsg() {
+				if (this.isLoadingMsg) {
+					return
+				}
+				// 动画，滚动
+				// 要记录下当前消息的总高度，翻页后滚动过去
+				let secondMsgId
+				if (this.loadedPageCount !== 0) {
+					secondMsgId = this.reverseChatMsgList[1].id
+				}
 				console.log('加载当前聊天室的消息')
-				const currentChatRoomInfo = (await getChatroomMsg(this.currentChatroomName, this.loadedPageCount)).data
+				this.isLoadingMsg = true;
+				const currentChatRoomInfo = (await getChatroomMsg(this.currentChatroomName, this.loadedPageCount + 1)).data
 				this.loadedPageCount = currentChatRoomInfo.currPage
 				this.maxPage = currentChatRoomInfo.maxPage
 				this.totalMsgCount = currentChatRoomInfo.chatCount
-				this.chatMsgList.push(...currentChatRoomInfo.chatList);
+				for (let i = 0; i < currentChatRoomInfo.chatList.length; i += 1) {
+					this.reverseChatMsgList.unshift(currentChatRoomInfo.chatList[i])
+				}
+				this.isLoadingMsg = false;
+				if (this.loadedPageCount === 1) {
+					this.scrollTo(99999) // 倒序展示的，初次加载时应该滚动到底部看最新的
+				} else {
+					// 翻页后滚动回去
+					this.$refs['msgItem' + secondMsgId][0].$el.scrollIntoView()
+				}
 			},
+			handleReachTop() {
+				console.log("handleReachTop")
+				this.loadCurrentRoomMsg() // 下一页
+				this.isNeedAutoRefresh = false; //有加载上一页的话就不自动刷新
+			},
+			handleReachBottom() {
+				// console.log("handleReachBottom")
+			},
+			handleScroll(e) {
+				// console.log("handleScroll")
+				this.scrollTopOld = e.detail.scrollTop // 存一下，翻页时用
+			},
+			scrollTo(targetTop) {
+
+				this.$nextTick(() => {
+					this.scrollTop = this.scrollTopOld
+					this.$nextTick(() => {
+						this.scrollTop = targetTop
+						// 否则可能遇到不生效的情况，看这里 https://uniapp.dcloud.io/vue-api?id=componentsolutions
+					})
+				})
+			}
 		},
 		watch: {}
 	};
