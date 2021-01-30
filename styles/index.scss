@@ -1,0 +1,14 @@
+@import './variables.scss';
+
+page {
+	background-color: $pageBg;
+	height: 100%;
+	overflow: hidden;
+}
+
+.page-content {
+	padding: 0 16px;
+	background-color: $pageBg;
+	height: 100%;
+	overflow: hidden;
+}

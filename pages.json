@@ -1,0 +1,57 @@
+{
+	"easycom": {
+		// 下载安装的方式需要前面的"@/"，npm安装的方式无需"@/"
+		// 下载安装方式
+		"^u-(.*)": "@/uView/uview-ui/components/u-$1/u-$1.vue"
+		// npm安装方式
+		// "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "首页"
+		},
+		"style": {
+			// "navigationStyle": "custom" //禁用uni-app默认的头部导航
+		}
+	}, {
+		"path": "pages/chatroom/index",
+		"style": {
+			"navigationBarTitleText": "聊天室"
+		}
+	}, {
+		"path": "pages/userCenter/index",
+		"style": {
+			"navigationBarTitleText": "我的"
+		}
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "虎绿林",
+		"navigationBarBackgroundColor": "#F7F7F7",
+		"backgroundColor": "#f8f8f8", // 下拉刷新的背景色
+		"usingComponents": {}
+	},
+	"tabBar": {
+		"color": "#a9a4a9",
+		"selectedColor": "#006fff",
+		"borderStyle": "black",
+		"backgroundColor": "#fafafa",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/assets/tab-home.png",
+			"selectedIconPath": "static/assets/tab-home-active.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/chatroom/index",
+			"iconPath": "static/assets/tab-chatroom.png",
+			"selectedIconPath": "static/assets/tab-chatroom-active.png",
+			"text": "聊天室"
+		}, {
+			"pagePath": "pages/userCenter/index",
+			"iconPath": "static/assets/tab-usercenter.png",
+			"selectedIconPath": "static/assets/tab-usercenter-active.png",
+			"text": "我的"
+		}]
+	}
+}
