@@ -18,7 +18,9 @@
 		name: 'addCommentBtn',
 		props: {},
 		data() {
-			return {}
+			return {
+				isShowChatroomInputMsgbox: false
+			}
 		},
 		computed: {},
 		methods: {}

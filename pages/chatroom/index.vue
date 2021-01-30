@@ -17,8 +17,9 @@
 					<view v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :ref="'msgItem'+msgItem.id">
 						<!-- SwipeAction at 他，帖子回复也是 -->
 						<p> {{msgItem.uinfo.name}}</p>
-						<view style="width: 100%;">
-							<rich-text :nodes="msgItem.content"></rich-text>
+						<view>
+							<rich-text :nodes="formatRichText(msgItem.content)"></rich-text>
+							<!-- <rich-text  class="richtext-img" :nodes="msgItem.content"></rich-text> -->
 						</view>
 						<hr>
 					</view>
@@ -57,8 +58,6 @@
 				scrollViewHeight: 1200, // 这个必须指定高度，css没搞明白怎么计算，用js试试
 				scrollTop: 0,
 				scrollTopOld: 0, // 不是双向绑定的，要靠事件
-
-				isShowChatroomInputMsgbox: false
 			};
 		},
 		components: {
@@ -128,7 +127,6 @@
 				this.scrollTopOld = e.detail.scrollTop // 存一下，翻页时用
 			},
 			scrollTo(targetTop) {
-
 				this.$nextTick(() => {
 					this.scrollTop = this.scrollTopOld
 					this.$nextTick(() => {
@@ -136,6 +134,25 @@
 						// 否则可能遇到不生效的情况，看这里 https://uniapp.dcloud.io/vue-api?id=componentsolutions
 					})
 				})
+			},
+			formatRichText(html) {
+				// 去掉img标签里的style、width、height属性
+				let newContent = html.replace(/<img[^>]*>/gi, function(match, capture) {
+					match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
+					match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
+					match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
+					return match;
+				});
+				// 修改所有style里的width属性为max-width:100%
+				newContent = newContent.replace(/style="[^"]+"/gi, function(match, capture) {
+					match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
+					return match;
+				});
+				// 去掉<br/>标签
+				newContent = newContent.replace(/<br[^>]*\/>/gi, '');
+				// img标签添加style属性：max-width:100%;height:auto
+				newContent = newContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto;display:block;margin:0px auto;"');
+				return newContent;
 			}
 		},
 		watch: {}
@@ -165,7 +182,11 @@
 		right: 12px;
 		color: #fff;
 		font-size: 18px;
-
 	}
 
+	// .richtext-img {
+	// 	img {
+	// 		max-width: 100%;
+	// 	}
+	// }
 </style>
