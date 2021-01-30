@@ -1,6 +1,6 @@
 <template>
 	<view class="page-content">
-		<u-navbar :is-back="false" title="" :background="navbarBackground" :height="60">
+		<u-navbar :is-back="false" title="" :background="navbarBackground" :height="navbarHeight">
 			<view class="chatroom-choose-wrap">
 				<u-icon name="chat" color="#ffffff" size="34"></u-icon>
 				<text class="chatroom-name-text">{{currentChatroomName}}</text>
@@ -26,6 +26,7 @@
 				</view>
 			</scroll-view>
 		</view>
+		<u-top-tips ref="uTips" :navbar-height="statusBarHeight + navbarHeight"></u-top-tips>
 		<addCommentBtn />
 
 	</view>
@@ -49,7 +50,6 @@
 				currentChatroomName: '',
 				chatroomList: [], // 全部聊天室列表，第一项（最新发言）是默认展示的。另外 没做新建聊天室（即手动输入名称进入聊天室）
 
-
 				loadedPageCount: 0, // 已加载的聊天室消息页数
 				isLoadingMsg: false,
 				maxPage: 1, // 一共多少页
@@ -58,6 +58,11 @@
 				scrollViewHeight: 1200, // 这个必须指定高度，css没搞明白怎么计算，用js试试
 				scrollTop: 0,
 				scrollTopOld: 0, // 不是双向绑定的，要靠事件
+
+				// 状态栏高度，H5中，此值为0，因为H5不可操作状态栏
+				statusBarHeight: uni.getSystemInfoSync().statusBarHeight,
+				// 导航栏内容区域高度，不包括状态栏高度在内
+				navbarHeight: 50
 			};
 		},
 		components: {
@@ -73,7 +78,7 @@
 			console.log(uniPageWrapper)
 			if (uniPageWrapper[0]) {
 				// 它的高度已经减去了底部tabbar，再减顶部自己的导航条即可
-				this.scrollViewHeight = uniPageWrapper[0].offsetHeight - 60
+				this.scrollViewHeight = uniPageWrapper[0].offsetHeight - this.navbarHeight
 			}
 
 		},
@@ -91,11 +96,11 @@
 				if (this.isLoadingMsg) {
 					return
 				}
-				// 动画，滚动
+				// TODO 加载等待动画
 				// 要记录下当前消息的总高度，翻页后滚动过去
-				let secondMsgId
+				let firstMsgId, lastMsgId
 				if (this.loadedPageCount !== 0) {
-					secondMsgId = this.reverseChatMsgList[1].id
+					firstMsgId = this.reverseChatMsgList[0].id
 				}
 				console.log('加载当前聊天室的消息')
 				this.isLoadingMsg = true;
@@ -107,12 +112,25 @@
 					this.reverseChatMsgList.unshift(currentChatRoomInfo.chatList[i])
 				}
 				this.isLoadingMsg = false;
-				if (this.loadedPageCount === 1) {
-					this.scrollTo(99999) // 倒序展示的，初次加载时应该滚动到底部看最新的
-				} else {
-					// 翻页后滚动回去
-					this.$refs['msgItem' + secondMsgId][0].$el.scrollIntoView()
+				this.$refs.uTips.show({
+					title: '加载第' + this.loadedPageCount + '页完成',
+					type: 'success',
+					duration: '2300'
+				})
+				const scrollToPosition = () => {
+					if (this.loadedPageCount === 1) {
+						this.scrollTo(99999) // 倒序展示的，初次加载时应该滚动到底部看最新的
+					} else {
+						// 翻页后滚动回去
+						this.$refs['msgItem' + firstMsgId][0].$el.scrollIntoView()
+					}
 				}
+				// 会受图片加载影响，导致定位不准。测试这种方式体验还行
+				setTimeout(scrollToPosition, 20)
+				setTimeout(scrollToPosition, 50)
+				setTimeout(scrollToPosition, 120)
+				setTimeout(scrollToPosition, 400)
+				setTimeout(scrollToPosition, 1000)
 			},
 			handleReachTop() {
 				console.log("handleReachTop")
@@ -166,7 +184,7 @@
 		padding: 4px 6px;
 		background-color: rgba(240, 240, 240, 0.35);
 		color: #fff;
-		font-size: 18px;
+		font-size: 16px;
 		border-radius: 100rpx;
 		margin-left: 30rpx;
 
@@ -181,7 +199,7 @@
 		position: absolute;
 		right: 12px;
 		color: #fff;
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	// .richtext-img {
