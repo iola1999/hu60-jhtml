@@ -1,6 +1,6 @@
 <template>
 	<view class="post-item">
-		<view class="post-title van-multi-ellipsis--l2">{{ onePostInfo.title }}</view>
+		<view class="post-title u-line-3">{{ onePostInfo.title }}</view>
 		<view class="post-info">
 			<img class="post-avatar" :src="avatarUrl" @error="handleAvatarError" />
 			<span class="post-author-name">{{ onePostInfo.uinfo.name }}</span>
@@ -49,29 +49,32 @@
 
 <style scoped lang="scss">
 	.post-item {
-		// height: 75px;
-		width: calc(100% - 32px);
 		border-bottom: 1px solid #dddddd;
 		margin: 2px 8px;
 		padding: 2px 8px;
 
 		.post-title {
 			margin-bottom: 2px;
+			font-size: 16px;
+			font-weight: 600;
 		}
 
 		.post-info {
 			color: #777;
 			font-size: small;
+			vertical-align: middle;
 
 			.post-avatar {
 				width: 30px;
 				height: 30px;
 				// position: absolute;
+				vertical-align: middle;
 				border-radius: 15px;
 			}
 
 			.post-author-name {
 				margin-left: 8px;
+				vertical-align: middle;
 			}
 
 			.post-forum-name {
@@ -79,10 +82,12 @@
 				border-radius: 4px;
 				margin-left: 8px;
 				padding: 2px;
+				vertical-align: middle;
 			}
 
 			.post-forum-lastactivetime {
 				margin-left: 8px;
+				vertical-align: middle;
 			}
 
 			.comment-and-read {
