@@ -1,15 +1,15 @@
 <template>
 	<view class="user-content-item">
 		<view class="user-content-info">
-			<userAvatar :userId="msgItem.uid" />
-			<span class="user-content-author-name">{{ msgItem.uinfo.name }}</span>
+			<userAvatar :userId="contentItem.uid" />
+			<span class="user-content-author-name">{{ contentItem.uinfo.name }}</span>
 			<span class="user-content-lastactivetime">{{ lastActiveTime }}</span>
 
 			<view class="user-content-info-right">
-				<span class="user-content-floor">#{{ msgItem.lid }}</span>
+				<span class="user-content-floor">#{{ contentItem.lid||contentItem.floor }}</span>
 			</view>
 		</view>
-		<userContentRenderer :htmlContent="msgItem.content" class="user-content-renderarea" />
+		<userContentRenderer :htmlContent="contentItem.content" class="user-content-renderarea" />
 	</view>
 </template>
 
@@ -21,7 +21,7 @@
 	export default {
 		name: 'user-contentItem',
 		props: {
-			msgItem: Object,
+			contentItem: Object,
 		},
 		components: {
 			userContentRenderer,
@@ -32,7 +32,7 @@
 		},
 		computed: {
 			lastActiveTime() {
-				return formatMsgTime(1000 * this.msgItem.time);
+				return formatMsgTime(1000 * (this.contentItem.time || this.contentItem.ctime));
 			},
 		},
 		methods: {}

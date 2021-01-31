@@ -1,13 +1,16 @@
 <template>
 	<view class="page-content post-detail">
-		<u-navbar title="" :background="navbarBackground" :height="navbarHeight" class="nav-bar">
-			<view slot="right">右边放个三横线</view>
+		<u-navbar :title="postDetailData.fName" :background="navbarBackground" :height="navbarHeight" class="nav-bar">
+			<view slot="right">
+				<u-icon name="list" style="margin-right: 8px" />
+			</view>
 		</u-navbar>
 		<view>
-			<postMainFloor :postDetailData="postDetailData" />
-			<scroll-view :style='"height: " +scrollViewHeight+"px;"' scroll-y="true" @scrolltolower="handleReachCommentBottom">
-				<!-- <userContentItem v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :msgItem="msgItem" :ref="'msgItem'+msgItem.id" /> -->
-			</scroll-view>
+			<postMainFloor :postDetailData="postDetailData" v-if="loadedPageCount>0" />
+			<view class="reply-floor-warper" v-if="loadedPageCount>0">
+				<userContentItem v-for="replyItem in postDetailData.tContents.slice(1)" :key="replyItem.id" :contentItem="replyItem" />
+			</view>
+			<u-loadmore :status="loadMoreStatus" icon-type="flower" bg-color="transperant" margin-top="30" margin-bottom="30" />
 		</view>
 		<u-top-tips ref="uTips" :navbar-height="statusBarHeight + navbarHeight -1"></u-top-tips>
 		<addCommentBtn />
@@ -16,7 +19,7 @@
 
 <script>
 	import {
-		getChatroomMsg
+		getPostDetailAndReply
 	} from '@/api/hu60Api.js';
 	import addCommentBtn from '@/components/addCommentBtn'
 	import userContentItem from '@/components/userContentItem'
@@ -28,14 +31,27 @@
 					backgroundColor: '#53b1a8',
 				},
 				postDetailData: {
-					tContents: []
+					fName: '',
+					tMeta: {
+						uid: 1,
+						title: "",
+						"read_count": 0,
+					},
+					floorCount: 1,
+					maxPage: 1,
+					tContents: [{
+						ctime: 0,
+						uid: 1,
+						uinfo: {
+							name: ""
+						},
+						content: ''
+					}]
 				}, // 帖子的请求结果
 
 				loadedPageCount: 0,
 
-				scrollViewHeight: 1200, // 这个必须指定高度，css没搞明白怎么计算，用js试试
-				scrollTop: 0,
-				scrollTopOld: 0, // 不是双向绑定的，要靠事件
+				loadMoreStatus: 'loading', // loadmore	loading / nomore
 
 				// 状态栏高度，H5中，此值为0，因为H5不可操作状态栏
 				statusBarHeight: uni.getSystemInfoSync().statusBarHeight,
@@ -48,17 +64,12 @@
 			userContentItem,
 			postMainFloor
 		},
-		onLoad() {
+		onLoad(option) {
 			// created
+			this.loadContentAndReply()
 		},
 		onReady() {
 			// mounted
-			const uniPageWrapper = document.getElementsByTagName("uni-page-wrapper")
-			console.log(uniPageWrapper)
-			if (uniPageWrapper[0]) {
-				// 它的高度已经减去了底部tabbar，再减顶部自己的导航条即可
-				this.scrollViewHeight = uniPageWrapper[0].offsetHeight - this.navbarHeight
-			}
 		},
 		onHide() {
 			console.log('onHide')
@@ -69,21 +80,31 @@
 		onUnload() {
 
 		},
+		onReachBottom() {
+			console.log('onReachBottom');
+			if (this.loadMoreStatus === 'loadmore') {
+				this.loadContentAndReply()
+			}
+		},
 		computed: {},
 		methods: {
 			async loadContentAndReply() {
+				this.loadMoreStatus = "loading"
 				const postDetail = (await getPostDetailAndReply(this.$route.query.topic_id, this.loadedPageCount + 1)).data
 				this.loadedPageCount += 1;
 				if (this.loadedPageCount === 1) {
 					this.postDetailData = postDetail;
 				} else {
 					// 拼接回复列表
-					this.postDetailData.tContents.push(...response.data.tContents);
+					this.postDetailData.tContents.push(...postDetail.tContents);
+				}
+				if (this.loadedPageCount === this.postDetailData.maxPage) {
+					// 无更多页
+					this.loadMoreStatus = "nomore"
+				} else {
+					this.loadMoreStatus = 'loadmore'
 				}
 			},
-			handleReachCommentBottom() {
-
-			}
 		},
 		watch: {
 
@@ -95,8 +116,10 @@
 	.post-detail {
 		.nav-bar {}
 
-		.u-tip-show {
-			z-index: 980 !important;
+		.reply-floor-warper {
+			margin-top: 8px;
+			border: 1px solid #dddddd;
+			border-radius: 4px;
 		}
 	}
 </style>

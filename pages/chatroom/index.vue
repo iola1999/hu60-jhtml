@@ -10,7 +10,7 @@
 		<view>
 			<scroll-view :style='"height: " +scrollViewHeight+"px;"' scroll-y="true" :scroll-top="scrollTop" :upper-threshold="150"
 			 @scrolltoupper="handleReachTop" @scrolltolower="handleReachBottom" @scroll="handleScroll">
-				<userContentItem v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :msgItem="msgItem" :ref="'msgItem'+msgItem.id" />
+				<userContentItem v-for="contentItem in reverseChatMsgList" :key="contentItem.id" :contentItem="contentItem" :ref="'contentItem'+contentItem.id" />
 			</scroll-view>
 		</view>
 		<u-top-tips ref="uTips" :navbar-height="statusBarHeight + navbarHeight -1"></u-top-tips>
@@ -119,7 +119,7 @@
 						this.scrollTo(99999) // 倒序展示的，初次加载时应该滚动到底部看最新的
 					} else {
 						// 翻页后滚动回去
-						this.$refs['msgItem' + firstMsgId][0].$el.scrollIntoView()
+						this.$refs['contentItem' + firstMsgId][0].$el.scrollIntoView()
 					}
 				}
 				// 会受图片加载影响，导致定位不准。测试这种方式体验还行
@@ -204,10 +204,5 @@
 				margin-left: 12px;
 			}
 		}
-
-		.u-tip-show {
-			z-index: 980 !important;
-		}
-
 	}
 </style>

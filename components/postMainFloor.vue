@@ -1,83 +1,44 @@
 <template>
-	<view class="user-content-item">
-		楼主的内容，展示帖子信息、内容
-		<userContentRenderer :htmlContent="msgItem.content" class="user-content-renderarea" />
+	<view class="post-main-floor">
+		<!-- 楼主的内容，展示帖子信息、内容 -->
+		{{postDetailData.tMeta.title}}
+		<userAvatar :userId="postDetailData.tMeta.uid" />
+		{{postDetailData.tContents[0].uinfo.name}}
+		<userContentRenderer :htmlContent="postDetailData.tContents[0].content" class="user-content-renderarea" />
 	</view>
 </template>
 
 <script>
 	import formatMsgTime from '@/utils/formatMsgTime';
 	import userContentRenderer from './userContentRenderer'
+	import userAvatar from './userAvatar'
 
 	export default {
 		name: 'postMainFloor',
 		props: {
-			msgItem: Object,
+			postDetailData: Object,
 		},
 		components: {
-			userContentRenderer
+			userContentRenderer,
+			userAvatar
 		},
 		data() {
-			return {
-				avatarUrl: 'http://file.hu60.cn/avatar/' + this.msgItem.uid + '.jpg'
-			}
+			return {}
 		},
 		computed: {
 			lastActiveTime() {
 				return formatMsgTime(1000 * this.msgItem.time);
 			},
 		},
-		methods: {
-			handleAvatarError() {
-				this.avatarUrl = "http://hu60.cn/upload/default.jpg"
-			},
-		}
+		methods: {}
 	};
 </script>
 
 <style lang="scss">
-	.user-content-item {
-		// 该item
-		border-bottom: 1px solid #dddddd;
-		padding: 10px 6px;
-
-		.user-content-renderarea {
-			// 发言内容
-			padding: 12px 0 12px 32px;
-		}
-
-		.user-content-info {
-			color: #777;
-			font-size: small;
-			vertical-align: middle;
-
-			.user-content-avatar {
-				width: 30px;
-				height: 30px;
-				vertical-align: middle;
-				border-radius: 15px;
-			}
-
-			.user-content-author-name {
-				margin-left: 8px;
-				vertical-align: middle;
-			}
-
-			.user-content-lastactivetime {
-				margin-left: 8px;
-				vertical-align: middle;
-			}
-
-			.user-content-info-right {
-				float: right;
-				display: flex;
-				margin-right: 8px;
-				margin-top: 5px;
-
-				.user-content-floor {
-					line-height: 20px;
-				}
-			}
-		}
+	.post-main-floor {
+		border: 1px solid #dddddd;
+		border-radius: 4px;
+		margin-top: 2px;
+		padding: 8px 4px;
 	}
 </style>

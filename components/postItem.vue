@@ -43,7 +43,7 @@
 			handleClickPost() {
 				console.log('进入帖子：', this.onePostInfo)
 				uni.navigateTo({
-					url: '/pages/postDetail/postDetail?id=1&name=uniapp'
+					url: '/pages/postDetail/postDetail?topic_id=' + this.onePostInfo.topic_id
 				});
 			},
 		}
