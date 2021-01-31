@@ -1,6 +1,6 @@
 <template>
 	<view class="page-content">
-		<postItem v-for="postItem in postList" :key="postItem.topic_id" :onePostInfo="postItem"/>
+		<postItem v-for="postItem in postList" :key="postItem.topic_id" :onePostInfo="postItem" />
 		<u-loadmore v-show="loadedPageCount>0" :status="loadMoreStatus" icon-type="flower" bg-color="transperant" margin-top="30"
 		 margin-bottom="30" />
 	</view>
@@ -38,17 +38,19 @@
 		},
 		onReachBottom() {
 			console.log('onReachBottom');
-			this.loadPostList()
+			if (this.loadMoreStatus === 'loadmore') {
+				this.loadPostList()
+			}
 		},
 		methods: {
 			async loadPostList() {
 				this.loadMoreStatus = 'loading'
 				const loadPostRes = (await listNewPosts(this.loadedPageCount + 1)).data
-				this.loadMoreStatus = 'loadmore'
 				uni.stopPullDownRefresh();
 				if (loadPostRes.newTopicList.length === 0) {
 					this.loadMoreStatus = 'nomore';
 				} else {
+					this.loadMoreStatus = 'loadmore'
 					this.postList.push(...loadPostRes.newTopicList);
 					this.loadedPageCount += 1;
 				}
