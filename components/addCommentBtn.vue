@@ -3,7 +3,7 @@
 		<!-- 下面这两个view拆分成组件 -->
 		<view class="fab-container">
 			<!-- 发言的输入框用一个悬浮按钮，点击后弹窗。 -->
-			<u-icon name="edit-pen" color="#ffffff" size="64" @click="isShowChatroomInputMsgbox = true"></u-icon>
+			<u-icon name="edit-pen" color="#ffffff" size="60" @click="isShowChatroomInputMsgbox = true"></u-icon>
 		</view>
 		<u-popup v-model="isShowChatroomInputMsgbox" mode="bottom" height="500px">
 			<view>输入框，这个应该跟回帖的复用</view>
@@ -34,19 +34,13 @@
 			justify-content: center;
 			align-items: center;
 			z-index: 10;
-			height: 60px;
-			width: 60px;
+			height: 100rpx;
+			width: 100rpx;
+			border-radius: 50rpx;
 			right: 30px;
-			border-radius: 30px;
 			bottom: 70px;
-			padding: 10px;
+			padding: 20rpx;
 			background-color: #006fff;
-
-			image {
-				z-index: 11;
-				width: 30px;
-				height: 30px;
-			}
 		}
 
 		.fab-container:active {

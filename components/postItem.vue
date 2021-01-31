@@ -5,7 +5,7 @@
 			<img class="post-avatar" :src="avatarUrl" @error="handleAvatarError" />
 			<span class="post-author-name">{{ onePostInfo.uinfo.name }}</span>
 			<span class="post-forum-name">{{ onePostInfo.forum_name }}</span>
-			<span class="post-forum-lastactivetime">{{ lastActiveTime }}</span>
+			<span class="post-lastactivetime">{{ lastActiveTime }}</span>
 			<view class="comment-and-read">
 				<img class="post-info-icon" src="@/static/assets/comment_count.png" />
 				<span class="post-info-count">{{ onePostInfo.reply_count }}</span>
@@ -22,7 +22,7 @@
 	import formatMsgTime from '@/utils/formatMsgTime';
 
 	export default {
-		name: 'onePost',
+		name: 'postItem',
 		props: {
 			onePostInfo: {
 				type: Object,
@@ -50,8 +50,7 @@
 <style scoped lang="scss">
 	.post-item {
 		border-bottom: 1px solid #dddddd;
-		margin: 2px 8px;
-		padding: 2px 8px;
+		padding: 10px;
 
 		.post-title {
 			margin-bottom: 2px;
@@ -85,7 +84,7 @@
 				vertical-align: middle;
 			}
 
-			.post-forum-lastactivetime {
+			.post-lastactivetime {
 				margin-left: 8px;
 				vertical-align: middle;
 			}

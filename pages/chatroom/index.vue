@@ -1,11 +1,12 @@
 <template>
 	<view class="page-content">
-		<u-navbar :is-back="false" title="" :background="navbarBackground" :height="navbarHeight">
+		<u-navbar :is-back="false" title="" :background="navbarBackground" :height="navbarHeight" class="nav-bar">
 			<view class="chatroom-choose-wrap">
 				<u-icon name="chat" color="#ffffff" size="34"></u-icon>
 				<text class="chatroom-name-text">{{currentChatroomName}}</text>
 				<u-icon name="arrow-down-fill" color="#ffffff" size="24"></u-icon>
 			</view>
+			<u-loading size="34" mode="flower" :show="isLoadingMsg" style="" class="navbar-loading"></u-loading>
 			<view class="auto-refresh-control ">
 				<u-switch v-model="isNeedAutoRefresh" active-color="#61e2b0" inactive-color="#d0daa5"></u-switch>自动刷新
 			</view>
@@ -15,18 +16,12 @@
 			 @scrolltoupper="handleReachTop" @scrolltolower="handleReachBottom" @scroll="handleScroll">
 				<view id="chatroomMsgScroll">
 					<view v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :ref="'msgItem'+msgItem.id">
-						<!-- SwipeAction at 他，帖子回复也是 -->
-						<p> {{msgItem.uinfo.name}}</p>
-						<view>
-							<rich-text :nodes="formatRichText(msgItem.content)"></rich-text>
-							<!-- <rich-text  class="richtext-img" :nodes="msgItem.content"></rich-text> -->
-						</view>
-						<hr>
+						<chatroomMsgItem :msgItem="msgItem" />
 					</view>
 				</view>
 			</scroll-view>
 		</view>
-		<u-top-tips ref="uTips" :navbar-height="statusBarHeight + navbarHeight"></u-top-tips>
+		<u-top-tips ref="uTips" :navbar-height="statusBarHeight + navbarHeight -1"></u-top-tips>
 		<addCommentBtn />
 
 	</view>
@@ -38,6 +33,7 @@
 		getChatroomMsg
 	} from '@/api/hu60Api.js';
 	import addCommentBtn from '@/components/addCommentBtn'
+	import chatroomMsgItem from '@/components/chatroomMsgItem'
 	export default {
 		data() {
 			return {
@@ -66,7 +62,8 @@
 			};
 		},
 		components: {
-			addCommentBtn
+			addCommentBtn,
+			chatroomMsgItem
 		},
 		onLoad() {
 			// created
@@ -115,7 +112,7 @@
 				this.$refs.uTips.show({
 					title: '加载第' + this.loadedPageCount + '页完成',
 					type: 'success',
-					duration: '2300'
+					duration: '2000'
 				})
 				const scrollToPosition = () => {
 					if (this.loadedPageCount === 1) {
@@ -153,58 +150,43 @@
 					})
 				})
 			},
-			formatRichText(html) {
-				// 去掉img标签里的style、width、height属性
-				let newContent = html.replace(/<img[^>]*>/gi, function(match, capture) {
-					match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
-					match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
-					match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
-					return match;
-				});
-				// 修改所有style里的width属性为max-width:100%
-				newContent = newContent.replace(/style="[^"]+"/gi, function(match, capture) {
-					match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
-					return match;
-				});
-				// 去掉<br/>标签
-				newContent = newContent.replace(/<br[^>]*\/>/gi, '');
-				// img标签添加style属性：max-width:100%;height:auto
-				newContent = newContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto;display:block;margin:0px auto;"');
-				return newContent;
-			}
 		},
 		watch: {}
 	};
 </script>
 
-<style lang="scss">
-	.chatroom-choose-wrap {
-		display: flex;
-		align-items: center;
-		padding: 4px 6px;
-		background-color: rgba(240, 240, 240, 0.35);
-		color: #fff;
-		font-size: 16px;
-		border-radius: 100rpx;
-		margin-left: 30rpx;
+<style lang="scss" scoped>
+	.nav-bar {
+		.chatroom-choose-wrap {
+			display: flex;
+			align-items: center;
+			padding: 4px 6px;
+			background-color: rgba(240, 240, 240, 0.35);
+			color: #fff;
+			font-size: 16px;
+			border-radius: 100rpx;
+			margin-left: 30rpx;
 
-		.chatroom-name-text {
-			padding: 0 12rpx;
+			.chatroom-name-text {
+				padding: 0 12rpx;
+			}
+		}
+
+		.auto-refresh-control {
+			display: flex;
+			align-items: center;
+			position: absolute;
+			right: 12px;
+			color: #fff;
+			font-size: 16px;
+		}
+
+		.navbar-loading {
+			margin-left: 12px;
 		}
 	}
 
-	.auto-refresh-control {
-		display: flex;
-		align-items: center;
-		position: absolute;
-		right: 12px;
-		color: #fff;
-		font-size: 16px;
+	.u-tip-show {
+		z-index: 980 !important;
 	}
-
-	// .richtext-img {
-	// 	img {
-	// 		max-width: 100%;
-	// 	}
-	// }
 </style>
