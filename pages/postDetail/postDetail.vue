@@ -114,12 +114,15 @@
 
 <style lang="scss" scoped>
 	.post-detail {
+		background-color: #e6e5ea;
+
 		.nav-bar {}
 
 		.reply-floor-warper {
 			margin-top: 8px;
 			border: 1px solid #dddddd;
-			border-radius: 4px;
+			border-radius: 6px;
+			background-color: #f7f8fa;
 		}
 	}
 </style>
