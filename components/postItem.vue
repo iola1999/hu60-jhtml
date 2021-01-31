@@ -6,13 +6,11 @@
 			<span class="post-author-name">{{ onePostInfo.uinfo.name }}</span>
 			<span class="post-forum-name">{{ onePostInfo.forum_name }}</span>
 			<span class="post-lastactivetime">{{ lastActiveTime }}</span>
-			<view class="comment-and-read">
-				<img class="post-info-icon" src="@/static/assets/comment_count.png" />
-				<span class="post-info-count">{{ onePostInfo.reply_count }}</span>
-			</view>
-			<view class="comment-and-read">
+			<view class="post-info-rightslot">
 				<img class="post-info-icon" src="@/static/assets/read_count.png" />
-				<span class="post-info-count">{{ onePostInfo.read_count }}</span>
+				<span class="post-info-text">{{ onePostInfo.read_count }}</span>
+				<img class="post-info-icon" src="@/static/assets/comment_count.png" />
+				<span class="post-info-text">{{ onePostInfo.reply_count }}</span>
 			</view>
 		</view>
 	</view>
@@ -89,10 +87,10 @@
 				vertical-align: middle;
 			}
 
-			.comment-and-read {
+			.post-info-rightslot {
 				float: right;
 				display: flex;
-				margin-right: 8px;
+				margin-right: -20px;
 				margin-top: 5px;
 
 				.post-info-icon {
@@ -101,8 +99,10 @@
 					margin-right: 2px;
 				}
 
-				.post-info-count {
+				.post-info-text {
 					line-height: 20px;
+					width: 35px;
+					text-align: left;
 				}
 			}
 		}

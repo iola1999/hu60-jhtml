@@ -41,10 +41,12 @@
 			bottom: 70px;
 			padding: 20rpx;
 			background-color: #006fff;
+			opacity: 0.3;
 		}
 
 		.fab-container:active {
 			border: 1px solid #006fff;
+			opacity: 1;
 		}
 	}
 </style>

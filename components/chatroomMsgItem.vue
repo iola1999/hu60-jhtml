@@ -65,7 +65,7 @@
 <style lang="scss">
 	.chatroom-msg-item {
 		border-bottom: 1px solid #dddddd;
-		padding: 10px;
+		padding: 10px 4px 6px 10px;
 
 		.chatroom-msg-content {
 			padding: 12px 0 12px 32px;
