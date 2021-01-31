@@ -40,7 +40,7 @@
 				},
 				isNeedAutoRefresh: true, // 用watch处理
 				currentChatroomName: '',
-				
+
 				loadedPageCount: 0, // 已加载的聊天室消息页数
 				isLoadingMsg: false,
 				maxPage: 1, // 一共多少页
@@ -70,6 +70,16 @@
 			if (uniPageWrapper[0]) {
 				// 它的高度已经减去了底部tabbar，再减顶部自己的导航条即可
 				this.scrollViewHeight = uniPageWrapper[0].offsetHeight - this.navbarHeight
+			}
+		},
+		onHide() {
+			console.log('onHide')
+			clearInterval(this.timerForAutoRefresh)
+		},
+		onShow() {
+			console.log('onShow')
+			if (this.isNeedAutoRefresh) {
+				this.setAutoRefresh()
 			}
 		},
 		onUnload() {
@@ -159,6 +169,12 @@
 				this.maxPage = 1
 				this.reverseChatMsgList = []
 				this.loadCurrentRoomMsg() // 从头加载第一页
+			},
+			setAutoRefresh() {
+				if (this.timerForAutoRefresh) {
+					clearInterval(this.timerForAutoRefresh)
+					this.timerForAutoRefresh = setInterval(this.handleChangeChatroom, 30 * 1000)
+				}
 			}
 		},
 		watch: {
@@ -166,7 +182,7 @@
 				handler(newValue, oldValue) {
 					console.log("watch isNeedAutoRefresh", newValue, oldValue)
 					if (newValue) {
-						this.timerForAutoRefresh = setInterval(this.handleChangeChatroom, 30 * 1000)
+						this.setAutoRefresh()
 					} else {
 						clearInterval(this.timerForAutoRefresh)
 					}
