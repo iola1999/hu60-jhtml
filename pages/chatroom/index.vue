@@ -1,11 +1,7 @@
 <template>
 	<view class="page-content">
 		<u-navbar :is-back="false" title="" :background="navbarBackground" :height="navbarHeight" class="nav-bar">
-			<view class="chatroom-choose-wrap">
-				<u-icon name="chat" color="#ffffff" size="34"></u-icon>
-				<text class="chatroom-name-text">{{currentChatroomName}}</text>
-				<u-icon name="arrow-down-fill" color="#ffffff" size="24"></u-icon>
-			</view>
+			<chatroomChoose :currentChatroomName="currentChatroomName" @on-room-change="handleChangeChatroom" />
 			<u-loading size="34" mode="flower" :show="isLoadingMsg" style="" class="navbar-loading"></u-loading>
 			<view class="auto-refresh-control ">
 				<u-switch v-model="isNeedAutoRefresh" active-color="#61e2b0" inactive-color="#d0daa5"></u-switch>自动刷新
@@ -29,11 +25,11 @@
 
 <script>
 	import {
-		getChatRoomList,
 		getChatroomMsg
 	} from '@/api/hu60Api.js';
 	import addCommentBtn from '@/components/addCommentBtn'
 	import chatroomMsgItem from '@/components/chatroomMsgItem'
+	import chatroomChoose from '@/components/chatroomChoose'
 	export default {
 		data() {
 			return {
@@ -44,8 +40,7 @@
 				},
 				isNeedAutoRefresh: true, // 用watch处理
 				currentChatroomName: '',
-				chatroomList: [], // 全部聊天室列表，第一项（最新发言）是默认展示的。另外 没做新建聊天室（即手动输入名称进入聊天室）
-
+				
 				loadedPageCount: 0, // 已加载的聊天室消息页数
 				isLoadingMsg: false,
 				maxPage: 1, // 一共多少页
@@ -62,11 +57,11 @@
 		},
 		components: {
 			addCommentBtn,
-			chatroomMsgItem
+			chatroomMsgItem,
+			chatroomChoose
 		},
 		onLoad() {
 			// created
-			this.getChatRoomList();
 		},
 		onReady() {
 			// mounted
@@ -82,14 +77,6 @@
 		},
 		computed: {},
 		methods: {
-			async getChatRoomList() {
-				// 聊天室列表，其中第一项是最新发言的，默认展示它
-				const roomList = (await getChatRoomList()).data.chatRomList
-				if (roomList.length > 0) {
-					this.currentChatroomName = roomList[0].name;
-					this.handleChangeChatRoom()
-				}
-			},
 			async loadCurrentRoomMsg() {
 				if (this.isLoadingMsg) {
 					return
@@ -165,7 +152,8 @@
 			handleAutoRefreshChange(newValue) {
 				console.log('handleAutoRefreshChange', newValue)
 			},
-			handleChangeChatRoom() {
+			handleChangeChatroom(newValue) {
+				this.currentChatroomName = newValue || this.currentChatroomName;
 				// 用于切换房间、定时刷新，第一次加载也可以用这个
 				this.loadedPageCount = 0
 				this.maxPage = 1
@@ -178,7 +166,7 @@
 				handler(newValue, oldValue) {
 					console.log("watch isNeedAutoRefresh", newValue, oldValue)
 					if (newValue) {
-						this.timerForAutoRefresh = setInterval(this.handleChangeChatRoom, 30 * 1000)
+						this.timerForAutoRefresh = setInterval(this.handleChangeChatroom, 30 * 1000)
 					} else {
 						clearInterval(this.timerForAutoRefresh)
 					}
@@ -191,21 +179,6 @@
 
 <style lang="scss" scoped>
 	.nav-bar {
-		.chatroom-choose-wrap {
-			display: flex;
-			align-items: center;
-			padding: 4px 6px;
-			background-color: rgba(240, 240, 240, 0.35);
-			color: #fff;
-			font-size: 16px;
-			border-radius: 100rpx;
-			margin-left: 30rpx;
-
-			.chatroom-name-text {
-				padding: 0 12rpx;
-			}
-		}
-
 		.auto-refresh-control {
 			display: flex;
 			align-items: center;
