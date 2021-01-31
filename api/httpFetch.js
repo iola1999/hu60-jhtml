@@ -9,7 +9,7 @@ const makeRequest = (url, data, method) => new Promise((resolve, reject) => {
 		header: {},
 	}).then(([error, response]) => {
 		if (error) {
-			console.log('error', error)
+			// console.log('error', error)
 			uni.showToast({
 				title: error,
 				icon: 'none',
@@ -18,7 +18,7 @@ const makeRequest = (url, data, method) => new Promise((resolve, reject) => {
 			});
 			reject(error)
 		} else {
-			console.log('response', response)
+			// console.log('response', response)
 			if (response.statusCode > 299) {
 				uni.showToast({
 					title: response.data,

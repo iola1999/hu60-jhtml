@@ -53,7 +53,7 @@
 		padding: 10px;
 
 		.post-title {
-			margin-bottom: 2px;
+			margin-bottom: 6px;
 			font-size: 16px;
 			font-weight: 600;
 		}

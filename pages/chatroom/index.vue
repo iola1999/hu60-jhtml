@@ -49,7 +49,6 @@
 				loadedPageCount: 0, // 已加载的聊天室消息页数
 				isLoadingMsg: false,
 				maxPage: 1, // 一共多少页
-				totalMsgCount: 0,
 				reverseChatMsgList: [],
 				scrollViewHeight: 1200, // 这个必须指定高度，css没搞明白怎么计算，用js试试
 				scrollTop: 0,
@@ -77,7 +76,9 @@
 				// 它的高度已经减去了底部tabbar，再减顶部自己的导航条即可
 				this.scrollViewHeight = uniPageWrapper[0].offsetHeight - this.navbarHeight
 			}
-
+		},
+		onUnload() {
+			clearInterval(this.timerForAutoRefresh)
 		},
 		computed: {},
 		methods: {
@@ -86,11 +87,19 @@
 				const roomList = (await getChatRoomList()).data.chatRomList
 				if (roomList.length > 0) {
 					this.currentChatroomName = roomList[0].name;
-					this.loadCurrentRoomMsg()
+					this.handleChangeChatRoom()
 				}
 			},
 			async loadCurrentRoomMsg() {
 				if (this.isLoadingMsg) {
+					return
+				}
+				if (this.loadedPageCount >= this.maxPage) {
+					this.$refs.uTips.show({
+						title: '已无更多消息',
+						type: 'success',
+						duration: '2000'
+					})
 					return
 				}
 				// TODO 加载等待动画
@@ -104,7 +113,6 @@
 				const currentChatRoomInfo = (await getChatroomMsg(this.currentChatroomName, this.loadedPageCount + 1)).data
 				this.loadedPageCount = currentChatRoomInfo.currPage
 				this.maxPage = currentChatRoomInfo.maxPage
-				this.totalMsgCount = currentChatRoomInfo.chatCount
 				for (let i = 0; i < currentChatRoomInfo.chatList.length; i += 1) {
 					this.reverseChatMsgList.unshift(currentChatRoomInfo.chatList[i])
 				}
@@ -131,6 +139,10 @@
 			},
 			handleReachTop() {
 				console.log("handleReachTop")
+				// 如果是自动刷新时置空列表导致的触发，则不处理
+				if (this.reverseChatMsgList.length === 0) {
+					return
+				}
 				this.loadCurrentRoomMsg() // 下一页
 				this.isNeedAutoRefresh = false; //有加载上一页的话就不自动刷新
 			},
@@ -150,8 +162,30 @@
 					})
 				})
 			},
+			handleAutoRefreshChange(newValue) {
+				console.log('handleAutoRefreshChange', newValue)
+			},
+			handleChangeChatRoom() {
+				// 用于切换房间、定时刷新，第一次加载也可以用这个
+				this.loadedPageCount = 0
+				this.maxPage = 1
+				this.reverseChatMsgList = []
+				this.loadCurrentRoomMsg() // 从头加载第一页
+			}
 		},
-		watch: {}
+		watch: {
+			isNeedAutoRefresh: {
+				handler(newValue, oldValue) {
+					console.log("watch isNeedAutoRefresh", newValue, oldValue)
+					if (newValue) {
+						this.timerForAutoRefresh = setInterval(this.handleChangeChatRoom, 30 * 1000)
+					} else {
+						clearInterval(this.timerForAutoRefresh)
+					}
+				},
+				immediate: true,
+			}
+		}
 	};
 </script>
 
