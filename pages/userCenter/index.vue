@@ -1,5 +1,5 @@
 <template>
-	<view class="page-content">个人中心{{userInfo}}</view>
+	<view class="page-content">个人中心 WIP</view>
 </template>
 
 <script>

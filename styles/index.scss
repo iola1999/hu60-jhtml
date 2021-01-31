@@ -1,14 +1,14 @@
 @import './variables.scss';
 
 page {
-	background-color: $pageBg;
+	background-color: $pageBg;	// 之前背景也用的是 #f7f8fa，加了动画之后帖子详情页面高度没占满时底部出现了空白，换个颜色简单修复
 	// height: 100%;
 	// overflow: auto;
 }
 
 .page-content {
 	padding: 0 16px;
-	background-color: $pageBg;
+	background-color: #f7f8fa;
 	// height: 100%;
 	overflow: auto;
 }

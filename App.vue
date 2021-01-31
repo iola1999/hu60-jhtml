@@ -1,10 +1,8 @@
 <script>
-	import {
-		getToken,
-		setToken,
-		removeToken
-	} from '@/utils/auth';
+	import pageAnimation from './components/Michael-pageAnimationPlus'
+	// 要去这个组件的 setting 维护页面层级
 	export default {
+		mixins: [pageAnimation],
 		onLaunch: function() {
 			this.$store.dispatch('user/getCurrentLoginInfo');
 			// 似乎所有的@click都要改成@tap ？
