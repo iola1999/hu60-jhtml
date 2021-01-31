@@ -1,8 +1,8 @@
 <template>
-	<view class="post-item">
+	<view class="post-item" @click.native="handleClickPost">
 		<view class="post-title u-line-3">{{ onePostInfo.title }}</view>
 		<view class="post-info">
-			<img class="post-avatar" :src="avatarUrl" @error="handleAvatarError" />
+			<userAvatar :userId="onePostInfo.uid" />
 			<span class="post-author-name">{{ onePostInfo.uinfo.name }}</span>
 			<span class="post-forum-name">{{ onePostInfo.forum_name }}</span>
 			<span class="post-lastactivetime">{{ lastActiveTime }}</span>
@@ -18,6 +18,7 @@
 
 <script>
 	import formatMsgTime from '@/utils/formatMsgTime';
+	import userAvatar from './userAvatar'
 
 	export default {
 		name: 'postItem',
@@ -27,10 +28,11 @@
 				default: () => null,
 			},
 		},
+		components: {
+			userAvatar
+		},
 		data() {
-			return {
-				avatarUrl: 'http://file.hu60.cn/avatar/' + this.onePostInfo.uid + '.jpg'
-			}
+			return {}
 		},
 		computed: {
 			lastActiveTime() {
@@ -38,9 +40,12 @@
 			},
 		},
 		methods: {
-			handleAvatarError() {
-				this.avatarUrl = "http://hu60.cn/upload/default.jpg"
-			}
+			handleClickPost() {
+				console.log('进入帖子：', this.onePostInfo)
+				uni.navigateTo({
+					url: '/pages/postDetail/postDetail?id=1&name=uniapp'
+				});
+			},
 		}
 	};
 </script>

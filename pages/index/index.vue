@@ -1,6 +1,6 @@
 <template>
 	<view class="page-content">
-		<postItem v-for="postItem in postList" :key="postItem.topic_id" :onePostInfo="postItem" @click.native="handleClickPost(postItem)" />
+		<postItem v-for="postItem in postList" :key="postItem.topic_id" :onePostInfo="postItem"/>
 		<u-loadmore v-show="loadedPageCount>0" :status="loadMoreStatus" icon-type="flower" bg-color="transperant" margin-top="30"
 		 margin-bottom="30" />
 	</view>
@@ -52,9 +52,6 @@
 					this.postList.push(...loadPostRes.newTopicList);
 					this.loadedPageCount += 1;
 				}
-			},
-			handleClickPost(postItem) {
-				console.log('进入帖子：', postItem)
 			},
 			initMainPageStatus() {
 				this.postList = []

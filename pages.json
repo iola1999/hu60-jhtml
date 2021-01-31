@@ -9,39 +9,38 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "首页",
-			"navigationStyle": "custom",
-			"app-plus": {
-				"titleView": false
-			}
+			"navigationBarTitleText": "首页"
 		},
 		"enablePullDownRefresh": true,
 		"onReachBottomDistance": 200
 	}, {
 		"path": "pages/chatroom/index",
 		"style": {
-			"navigationBarTitleText": "聊天室",
-			"navigationStyle": "custom",
-			"app-plus": {
-				"titleView": false
-			}
+			"navigationBarTitleText": "聊天室"
 		}
 	}, {
 		"path": "pages/userCenter/index",
 		"style": {
-			"navigationBarTitleText": "我的",
-			"navigationStyle": "custom",
-			"app-plus": {
-				"titleView": false
-			}
+			"navigationBarTitleText": "我的"
 		}
+	}, {
+		"path": "pages/postDetail/postDetail",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "虎绿林",
 		"navigationBarBackgroundColor": "#F7F7F7",
 		"backgroundColor": "#f8f8f8", // 下拉刷新的背景色
-		"usingComponents": {}
+		"usingComponents": {},
+		"navigationStyle": "custom",
+		"app-plus": {
+			"titleView": false
+		}
 	},
 	"tabBar": {
 		"color": "#a9a4a9",

@@ -1,5 +1,5 @@
 <template>
-	<view class="page-content">
+	<view class="page-content chat-room">
 		<u-navbar :is-back="false" title="" :background="navbarBackground" :height="navbarHeight" class="nav-bar">
 			<chatroomChoose :currentChatroomName="currentChatroomName" @on-room-change="handleChangeChatroom" />
 			<u-loading size="34" mode="flower" :show="isLoadingMsg" style="" class="navbar-loading"></u-loading>
@@ -10,16 +10,11 @@
 		<view>
 			<scroll-view :style='"height: " +scrollViewHeight+"px;"' scroll-y="true" :scroll-top="scrollTop" :upper-threshold="150"
 			 @scrolltoupper="handleReachTop" @scrolltolower="handleReachBottom" @scroll="handleScroll">
-				<view id="chatroomMsgScroll">
-					<view v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :ref="'msgItem'+msgItem.id">
-						<chatroomMsgItem :msgItem="msgItem" />
-					</view>
-				</view>
+				<userContentItem v-for="msgItem in reverseChatMsgList" :key="msgItem.id" :msgItem="msgItem" :ref="'msgItem'+msgItem.id" />
 			</scroll-view>
 		</view>
 		<u-top-tips ref="uTips" :navbar-height="statusBarHeight + navbarHeight -1"></u-top-tips>
 		<addCommentBtn />
-
 	</view>
 </template>
 
@@ -28,7 +23,7 @@
 		getChatroomMsg
 	} from '@/api/hu60Api.js';
 	import addCommentBtn from '@/components/addCommentBtn'
-	import chatroomMsgItem from '@/components/chatroomMsgItem'
+	import userContentItem from '@/components/userContentItem'
 	import chatroomChoose from '@/components/chatroomChoose'
 	export default {
 		data() {
@@ -57,7 +52,7 @@
 		},
 		components: {
 			addCommentBtn,
-			chatroomMsgItem,
+			userContentItem,
 			chatroomChoose
 		},
 		onLoad() {
@@ -194,22 +189,25 @@
 </script>
 
 <style lang="scss" scoped>
-	.nav-bar {
-		.auto-refresh-control {
-			display: flex;
-			align-items: center;
-			position: absolute;
-			right: 12px;
-			color: #fff;
-			font-size: 16px;
+	.chat-room {
+		.nav-bar {
+			.auto-refresh-control {
+				display: flex;
+				align-items: center;
+				position: absolute;
+				right: 12px;
+				color: #fff;
+				font-size: 16px;
+			}
+
+			.navbar-loading {
+				margin-left: 12px;
+			}
 		}
 
-		.navbar-loading {
-			margin-left: 12px;
+		.u-tip-show {
+			z-index: 980 !important;
 		}
-	}
 
-	.u-tip-show {
-		z-index: 980 !important;
 	}
 </style>
