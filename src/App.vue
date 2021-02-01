@@ -13,9 +13,9 @@
 </script>
 
 <style lang="scss">
+	@import "uView/uview-ui/index.scss";
 	@import '@/styles/index.scss'; // V3 编译器在APP里不能js中导入css，改到这里
 	@import '@/styles/github-markdown.css';
-	@import "uView/uview-ui/index.scss";
 
 	// view,
 	// scroll-view,
