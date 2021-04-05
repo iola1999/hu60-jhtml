@@ -1,6 +1,6 @@
 # hu60-jhtml-uniapp
 
-使用`uni-app`重构原项目。
+使用`uni-app`重构[原项目](https://github.com/iola1999/hu60-jhtml/tree/master)。
 
 ## 部分截图：
 
